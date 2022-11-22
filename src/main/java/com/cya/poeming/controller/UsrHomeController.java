@@ -2,6 +2,7 @@ package com.cya.poeming.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.poeming.vo.Rq;
 
@@ -23,4 +24,8 @@ public class UsrHomeController {
 		return "redirect:/usr/home/main";
 	}
 	
+	@RequestMapping("usr/home/map")
+	String showMap() {
+		return "usr/home/map";
+	}
 }

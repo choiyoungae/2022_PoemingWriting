@@ -1,15 +1,12 @@
 package com.cya.poeming.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cya.poeming.repository.ReplyRepository;
 import com.cya.poeming.util.Ut;
-import com.cya.poeming.vo.Article;
-import com.cya.poeming.vo.Attr;
-import com.cya.poeming.vo.Board;
 import com.cya.poeming.vo.Member;
 import com.cya.poeming.vo.Reply;
 import com.cya.poeming.vo.ResultData;
