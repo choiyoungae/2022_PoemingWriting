@@ -1,6 +1,17 @@
 server:
   port: 8088
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: choiaeyong1001@gmail.com
+    password: wgxgslaojffsqvoa
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -13,3 +24,11 @@ spring:
     password: 
 mybatis:
   type-aliases-package: com.cya.poeming.vo
+custom:
+  siteName: PoemingWriting
+  siteMainUri: http://localhost:8088
+  emailFrom: no-reply@localhost
+  emailFromName: PoemingWriting
+  logging:
+    dir: log
+    level: debug
