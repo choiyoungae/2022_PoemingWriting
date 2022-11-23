@@ -33,6 +33,13 @@
 							<button class="btn btn-ghost" type="submit" >로그인</button>
 						</td>
 					</tr>
+					<tr>
+						<th></th>
+						<td>
+							<a href="${rq.findLoginIdUri }" class="btn btn-active btn-ghost" type="submit">아이디 찾기</a>
+							<a href="${rq.findLoginPwUri }" class="btn btn-active btn-ghost" type="submit">비밀번호 찾기</a>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</form>

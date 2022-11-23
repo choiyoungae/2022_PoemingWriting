@@ -69,4 +69,8 @@ public class MemberService {
 		
 		return ResultData.from("S-1", "정상 코드입니다.");
 	}
+
+	public Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name, email);
+	}
 }

@@ -57,7 +57,7 @@
 					</a>
 				</li>
 				<li class="hover:underline">
-					<a href="/usr/article/list?boardId=2" class="h-full flex items-center px-3">
+					<a href="/usr/article/list?boardId=3" class="h-full flex items-center px-3">
 						<span>WRITING</span>
 					</a>
 				</li>
@@ -93,7 +93,7 @@
 	
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
-			<h1>${pageTitle }&nbsp;PAGE</h1>
+			<h1>${pageTitle }</h1>
 		</div>
 	</section>
 	<main>
