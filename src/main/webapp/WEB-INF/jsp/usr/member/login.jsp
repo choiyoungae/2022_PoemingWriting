@@ -24,7 +24,7 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input class="w-96" type="text" name="loginPw" placeholder="비밀번호를 입력해주세요" />
+							<input class="w-96" type="password" name="loginPw" placeholder="비밀번호를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
@@ -38,6 +38,7 @@
 						<td>
 							<a href="${rq.findLoginIdUri }" class="btn btn-active btn-ghost" type="submit">아이디 찾기</a>
 							<a href="${rq.findLoginPwUri }" class="btn btn-active btn-ghost" type="submit">비밀번호 찾기</a>
+							<a href="../member/join" class="btn btn-active btn-ghost" type="submit">회원가입</a>
 						</td>
 					</tr>
 				</tbody>

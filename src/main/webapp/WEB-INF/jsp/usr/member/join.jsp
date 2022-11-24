@@ -101,7 +101,22 @@
 		}, 'json');
 	}
 	
+	function checkLoginPwConfirmed(el) {
+		const form = $(el).closest('form').get(0);
+		
+		if (form.loginPw.value.length == 0 && form.loginPwConfirm.value.length == 0) {
+			return;
+		}
+		
+		if(form.loginPw.value != form.loginPwConfirm.value) {
+			$('.loginPwConfirm-msg').html('<div class="mt-2">불일치합니다.</div>');
+		} else {
+			$('.loginPwConfirm-msg').html('<div class="mt-2">일치합니다.</div>');
+		}
+	}
+	
 	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup,300); 
+	const checkLoginPwConfirmedDebounced = _.debounce(checkLoginPwConfirmed, 300);
 </script>
 
 <section class="mt-8 text-xl">
@@ -125,13 +140,15 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input name="loginPw" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호를 입력해주세요" />
+							<input name="loginPw" type="password" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input name="loginPwConfirm" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호 확인을 입력해주세요" />
+							<input name="loginPwConfirm" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호 확인을 입력해주세요"
+							onkeyup="checkLoginPwConfirmedDebounced(this);" type="password" autocomplete="off" />
+							<div class="loginPwConfirm-msg"></div>
 						</td>
 					</tr>
 					<tr>

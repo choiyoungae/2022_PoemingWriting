@@ -52,10 +52,10 @@ public class UsrMemberController {
 		Member oldMember = memberService.getMemberByLoginId(loginId);
 
 		if(oldMember != null) {			
-			return ResultData.from("F-A2", "이미 사용중인 아이디입니다.", "loginId", loginId);
+			return ResultData.from("F-A2", "사용 불가합니다.", "loginId", loginId);
 		}
 
-		return ResultData.from("S-1", "사용 가능한 아이디입니다.", "loginId", loginId);
+		return ResultData.from("S-1", "사용 가능합니다.", "loginId", loginId);
 	}
 	
 	@RequestMapping("/usr/member/login")

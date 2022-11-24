@@ -58,7 +58,8 @@
 							<select class="select select-bordered" name="boardId">
 								<option disabled>게시판을 선택해주세요</option>
 								<option value="1">공지사항</option>
-								<option value="2">자유</option>
+								<option value="2">창작시</option>
+								<option value="3">창작글</option>
 							</select>
 						</td>
 					</tr>
@@ -79,7 +80,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-ghost" type="submit" value="작성" />작성</button>
+							<button class="btn btn-ghost" type="submit" value="작성" >작성</button>
 						</td>
 					</tr>
 				</tbody>
