@@ -51,6 +51,12 @@ public class UsrArticleController {
 		if (Ut.isEmpty(body)) {
 			return Ut.jsHistoryBack("내용을 입력해주세요");
 		}
+		
+		if(boardId == 1) {
+			if(rq.getLoginedMember().getAuthLevel() != 7) {
+				return Ut.jsHistoryBack("작성 권한이 없습니다.");
+			}
+		}
 
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(boardId, title, body, rq.getLoginedMemberId());
 
