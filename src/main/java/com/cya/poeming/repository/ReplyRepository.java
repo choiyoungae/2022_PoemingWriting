@@ -85,4 +85,40 @@ public interface ReplyRepository {
 			WHERE id = #{id}
 			""")
 	void modifyReply(int id, String body);
+
+	@Update("""
+			<script>
+				UPDATE reply
+				SET goodReactionPoint = goodReactionPoint + 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	int increaseGoodReactionPoint(int relId);
+	
+	@Update("""
+			<script>
+				UPDATE reply
+				SET badReactionPoint = badReactionPoint + 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	public int increaseBadReactionPoint(int relId);
+
+	@Update("""
+			<script>
+				UPDATE reply
+				SET goodReactionPoint = goodReactionPoint - 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	public int decreaseGoodReactionPoint(int relId);
+
+	@Update("""
+			<script>
+				UPDATE reply
+				SET badReactionPoint = badReactionPoint - 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	public int decreaseBadReactionPoint(int relId);
 }

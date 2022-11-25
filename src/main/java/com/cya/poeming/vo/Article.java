@@ -18,6 +18,8 @@ public class Article {
 	private int hitCount;
 	private int goodReactionPoint;
 	private int badReactionPoint;
+	private int bookmarked;
+	private int reported;
 	
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;

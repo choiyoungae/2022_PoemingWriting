@@ -29,8 +29,8 @@
 			<table class="table w-full">
 				<colgroup>
 					<col width="80" />
-					<col width="140" />
 					<col />
+					<col width="140" />
 					<col width="140" />
 					<col width="80" />
 					<col width="80" />
@@ -39,11 +39,11 @@
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>날짜</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>조회수</th>
-						<th>추천</th>
+						<th>작성일</th>
+						<th>조회</th>
+						<th>책갈피</th>
 					</tr>
 				</thead>
 				
@@ -51,13 +51,13 @@
 					<c:forEach var="article" items="${articles }">
 						<tr class="hover">
 							<td>${article.id }</td>
-							<td>${article.getForPrintType1RegDate() }</td>
 							<td><a href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
+							<td>${article.getForPrintType1RegDate() }</td>
 							<td>
 								<span class='article-list__hit-count'>${article.hitCount }</span>
 							</td>
-							<td>${article.goodReactionPoint}</td>
+							<td>${article.bookmarked}</td>
 						</tr>
 					</c:forEach>
 					<c:if test="${articlesCount == 0 }">

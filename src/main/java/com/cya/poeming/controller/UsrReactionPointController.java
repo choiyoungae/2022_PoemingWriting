@@ -23,7 +23,7 @@ public class UsrReactionPointController {
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isFail()) {
-			return rq.jsHistoryBackOnView(actorCanMakeReactionRd.getMsg());
+			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
 		ResultData addGoodReactionPointRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -38,7 +38,7 @@ public class UsrReactionPointController {
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isFail()) {
-			return rq.jsHistoryBackOnView(actorCanMakeReactionRd.getMsg());
+			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
 		ResultData addBadReactionPointRd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -53,7 +53,7 @@ public class UsrReactionPointController {
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isSuccess()) {
-			return rq.jsHistoryBackOnView(actorCanMakeReactionRd.getMsg());
+			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
 		ResultData deleteGoodReactionPointRd = reactionPointService.deleteGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -68,11 +68,52 @@ public class UsrReactionPointController {
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isSuccess()) {
-			return rq.jsHistoryBackOnView(actorCanMakeReactionRd.getMsg());
+			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
 		ResultData deleteBadReactionPointRd = reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
 		return rq.jsReplace(deleteBadReactionPointRd.getMsg(), replaceUri);
+	}
+	
+	@RequestMapping("/usr/reactionPoint/checkActorMakeReplyReaction")
+	@ResponseBody
+	public boolean checkActorMakeReplyReaction(int id) {
+		
+		if(rq.getLoginedMember() == null) {
+			return false;
+		}
+		
+		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", id);
+
+		return actorCanMakeReactionRd.isSuccess();
+	}
+	
+	@RequestMapping("/usr/reactionPoint/checkActorCanCancelReplyReaction")
+	@ResponseBody
+	public boolean checkActorCanCancelReplyReaction(int relId, String reaction) {
+		
+		if(rq.getLoginedMember() == null) {
+			return false;
+		}
+		
+		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", relId);
+
+		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
+			
+			if (sumReactionPointByMemberId > 0) {
+				if(reaction.equals("good")) {
+					return true;
+				}
+			} else {
+				if(reaction.equals("bad")) {
+					return true;
+				}
+			}
+			
+		}
+		
+		return false;
 	}
 }

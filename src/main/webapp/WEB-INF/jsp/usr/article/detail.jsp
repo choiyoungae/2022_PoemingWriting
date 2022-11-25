@@ -11,6 +11,7 @@
 </script>
 
 <script>
+	// 게시글 조회수 관련
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView'
 		
@@ -33,6 +34,19 @@
 	$(function() {
 		ArticleDetail__increaseHitCount();
 	})
+	
+// 	댓글 리액션 처리중
+// 	function actorCanMakeReplyReaction(relId) {
+		
+// 		$.get('../article/checkActorMakeReplyReactionRd', {
+// 			relId : relId,
+// 			ajaxMode : 'Y'
+			
+// 		}, function(data) {
+// 			$('.article-detail__hit-count').empty().html(data.data1);
+			
+// 		}, 'json');
+// 	}
 </script>
 
 <section class="mt-8 text-xl">
@@ -208,6 +222,7 @@
 							<td>${reply.getForPrintBody() }</td>
 							<td>${reply.goodReactionPoint }</td>
 							<td>
+								<!-- 자신이 쓴 댓글일 경우 -->
 								<c:if test="${reply.extra__actorCanModify }">
 									<a class="btn-text-link" href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">수정</a>
 								</c:if>
@@ -215,6 +230,34 @@
 									<a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" 
 									href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">삭제</a>
 								</c:if>
+								
+								<!-- 자신이 쓴 댓글이 아닐 경우(일단 뜨는 부분만 처리. 기능 구현 중) -->
+								<c:if test="${reply.memberId != rq.getLoginedMemberId() }">
+									<span>&nbsp;</span>
+									<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
+									 class="btn btn-outline btn-xs">좋아요 👍</a>
+									<span>&nbsp;</span>
+									<a href="/usr/reactionPoint/doBadReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
+									 class="btn btn-outline btn-xs">별로예요 👎</a>
+								</c:if>
+								
+<%-- 								<c:if test="/usr/reactionPoint/checkActorCanCancelReaction?relId=${reply.id }&actorId=${rq.getLoginedMemberId() }&reaction=good"> --%>
+<!-- 									<span>&nbsp;</span> -->
+<%-- 									<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri} " --%>
+<!-- 									 class="btn btn-xs">좋아요 👍</a> -->
+<!-- 									<span>&nbsp;</span> -->
+<!-- 									<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#" -->
+<!-- 									 class="btn btn-outline btn-xs">별로예요👎</a> -->
+<%-- 								</c:if> --%>
+								
+<%-- 								<c:if test="${actorCanCancelBadReplyReaction}"> --%>
+<!-- 									<span>&nbsp;</span> -->
+<!-- 									<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#" -->
+<!-- 									 class="btn btn-outline btn-xs">좋아요👍</a> -->
+<!-- 									<span>&nbsp;</span> -->
+<%-- 									<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri}" --%>
+<!-- 									 class="btn btn-xs">별로예요 👎</a> -->
+<%-- 								</c:if> --%>
 							</td>
 						</tr>
 					</c:forEach>

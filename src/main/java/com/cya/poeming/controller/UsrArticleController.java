@@ -46,15 +46,15 @@ public class UsrArticleController {
 	public String doAdd(int boardId, String title, String body, String replaceUri) {
 		
 		if (Ut.isEmpty(title)) {
-			return Ut.jsHistoryBack("제목을 입력해주세요");
+			return rq.jsHistoryBack("제목을 입력해주세요");
 		}
 		if (Ut.isEmpty(body)) {
-			return Ut.jsHistoryBack("내용을 입력해주세요");
+			return rq.jsHistoryBack("내용을 입력해주세요");
 		}
 		
 		if(boardId == 1) {
 			if(rq.getLoginedMember().getAuthLevel() != 7) {
-				return Ut.jsHistoryBack("작성 권한이 없습니다.");
+				return rq.jsHistoryBack("작성 권한이 없습니다.");
 			}
 		}
 
@@ -66,7 +66,7 @@ public class UsrArticleController {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 		
-		return Ut.jsReplace(Ut.f("%d번 글이 작성되었습니다.", id), replaceUri);
+		return rq.jsReplace(Ut.f("%d번 글이 작성되었습니다.", id), replaceUri);
 	}
 
 	@RequestMapping("/usr/article/list")
@@ -78,7 +78,7 @@ public class UsrArticleController {
 		Board board = boardService.getBoardById(boardId);
 		
 		if(board == null) {
-			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
+			return rq.jsHistoryBack("존재하지 않는 게시판입니다.");
 		}
 
 		int itemsInAPage = 10;
@@ -104,19 +104,18 @@ public class UsrArticleController {
 		model.addAttribute("article", article);
 		
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
-		
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());
-
+		
 		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
 			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
-
+			
 			if (sumReactionPointByMemberId > 0) {
 				model.addAttribute("actorCanCancelGoodReaction", true);
 			} else {
 				model.addAttribute("actorCanCancelBadReaction", true);
 			}
-
+			
 		}
 		
 		int repliesInAPage = 5;
@@ -157,13 +156,13 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		
 		if(article == null) {
-			return rq.jsHistoryBackOnView(Ut.f("%d번은 존재하지 않는 게시물입니다.", id));
+			return rq.jsHistoryBack(Ut.f("%d번은 존재하지 않는 게시물입니다.", id));
 		}
 		
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 		
 		if(actorCanModifyRd.isFail()) {
-			return rq.jsHistoryBackOnView(actorCanModifyRd.getMsg());
+			return rq.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 		
 		model.addAttribute("article", article);

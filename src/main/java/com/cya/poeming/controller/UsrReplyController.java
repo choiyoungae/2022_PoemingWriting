@@ -52,7 +52,7 @@ public class UsrReplyController {
 
 		}
 		
-		return Ut.jsReplace(writeReplyRd.getMsg(), replaceUri);
+		return rq.jsReplace(writeReplyRd.getMsg(), replaceUri);
 	}
 	
 	@RequestMapping("/usr/reply/doDelete")
