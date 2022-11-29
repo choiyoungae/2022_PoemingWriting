@@ -25,8 +25,17 @@ public class Article {
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
 	
+	// 날짜&시간
 	public String getForPrintType1RegDate() {
 		return regDate.substring(2, 16).replace(" ", "<br />");
+	}
+	// 날짜만
+	public String getForPrintType2RegDate() {
+		return regDate.substring(2, 10);
+	}
+	// 시간만
+	public String getForPrintType3RegDate() {
+		return regDate.substring(11, 16);
 	}
 
 	public String getForPrintBody() {

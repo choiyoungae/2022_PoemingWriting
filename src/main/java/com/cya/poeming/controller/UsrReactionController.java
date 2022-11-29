@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cya.poeming.service.ReactionPointService;
+import com.cya.poeming.service.ReactionService;
 import com.cya.poeming.vo.ResultData;
 import com.cya.poeming.vo.Rq;
 
 @Controller
-public class UsrReactionPointController {
+public class UsrReactionController {
 	@Autowired
-	private ReactionPointService reactionPointService;
+	private ReactionService reactionPointService;
 	@Autowired
 	private Rq rq;
 	

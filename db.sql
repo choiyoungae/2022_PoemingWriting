@@ -94,11 +94,24 @@ CREATE TABLE reactionPoint (
     `point` INT(10) NOT NULL
 );
 
-# 게시물 테이블에 bookmarked 칼럼 추가
-ALTER TABLE article ADD COLUMN bookmarked INT(10) UNSIGNED NOT NULL DEFAULT 0;
+# 게시물 테이블에 goodReactionPoint 칼럼 추가
+ALTER TABLE article ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
-# 게시물 테이블에 reported 칼럼 추가
-ALTER TABLE article ADD COLUMN reported INT(10) UNSIGNED NOT NULL DEFAULT 0;
+# 게시물 테이블에 badReactionPoint 칼럼 추가
+ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 기존 게시물의 goodReactionPoint,badReactionPoint 필드의 값 채워주기
+UPDATE article AS A
+INNER JOIN (
+	SELECT RP.relTypeCode, RP.relId,
+	SUM(IF(RP.point > 0, RP.point, 0)) AS goodReactionPoint,
+	SUM(IF(RP.point < 0, RP.point * -1, 0)) AS badReactionPoint
+	FROM reactionPoint AS RP
+	GROUP BY RP.relTypeCode, RP.relId
+) AS RP_SUM
+ON A.id = RP_SUM.relId
+SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
+A.badReactionPoint = RP_SUM.badReactionPoint;
 
 # 댓글 테이블 생성
 CREATE TABLE reply (
@@ -151,6 +164,25 @@ ALTER TABLE `member` MODIFY COLUMN loginPw VARCHAR(100) NOT NULL;
 UPDATE `member`
 SET loginPw = SHA2(loginPw, 256);
 
+# 책갈피
+CREATE TABLE bookmark (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    `relId` INT(10) UNSIGNED NOT NULL,
+    memberId INT(10) UNSIGNED NOT NULL
+);
+
+# 신고
+CREATE TABLE report (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    `relId` INT(10) UNSIGNED NOT NULL,
+    reportedMemberId INT(10) UNSIGNED NOT NULL,
+    reportingMemberId INT(10) UNSIGNED NOT NULL,
+    reason INT(10) UNSIGNED NOT NULL COMMENT 
+    '신고사유 (1=스팸홍보/도배글, 2=음란물, 3=불법정보/저작권 침해, 4=욕설/생명경시/명예훼손/혐오/차별적 표현)'
+);
+
 #######################################################
 
 SELECT * FROM `member`;
@@ -159,3 +191,5 @@ SELECT * FROM board;
 SELECT * FROM reactionPoint;
 SELECT * FROM reply;
 SELECT * FROM attr;
+SELECT * FROM bookmark;
+SELECT * FROM report;

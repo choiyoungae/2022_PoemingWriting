@@ -53,7 +53,16 @@
 							<td>${article.id }</td>
 							<td><a href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
-							<td>${article.getForPrintType1RegDate() }</td>
+							<c:choose>							
+								<!-- 오늘 게시글이면 시간 보이기 -->
+								<c:when test="${rq.getTodayDate().equals(article.getForPrintType2RegDate())}">
+									<td>${article.getForPrintType3RegDate() }</td>								
+								</c:when>
+								<!-- 오늘 게시글 아니면 날짜 보이기 -->
+								<c:otherwise>
+									<td>${article.getForPrintType2RegDate() }</td>
+								</c:otherwise>
+							</c:choose>
 							<td>
 								<span class='article-list__hit-count'>${article.hitCount }</span>
 							</td>

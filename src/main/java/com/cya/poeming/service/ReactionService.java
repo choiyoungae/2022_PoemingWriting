@@ -3,13 +3,13 @@ package com.cya.poeming.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cya.poeming.repository.ReactionPointRepository;
+import com.cya.poeming.repository.ReactionRepository;
 import com.cya.poeming.vo.ResultData;
 
 @Service
-public class ReactionPointService {
+public class ReactionService {
 	@Autowired
-	private ReactionPointRepository reactionPointRepository;
+	private ReactionRepository reactionPointRepository;
 	@Autowired
 	private ArticleService articleService;
 	@Autowired

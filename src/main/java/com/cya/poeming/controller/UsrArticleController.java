@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.poeming.service.ArticleService;
 import com.cya.poeming.service.BoardService;
-import com.cya.poeming.service.ReactionPointService;
+import com.cya.poeming.service.ReactionService;
 import com.cya.poeming.service.ReplyService;
 import com.cya.poeming.util.Ut;
 import com.cya.poeming.vo.Article;
@@ -29,7 +29,7 @@ public class UsrArticleController {
 	@Autowired
 	private BoardService boardService;
 	@Autowired
-	private ReactionPointService reactionPointService;
+	private ReactionService reactionPointService;
 	@Autowired
 	private ReplyService replyService;
 	@Autowired

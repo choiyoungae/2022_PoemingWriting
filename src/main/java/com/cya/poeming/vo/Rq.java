@@ -1,6 +1,8 @@
 package com.cya.poeming.vo;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -193,5 +195,15 @@ public class Rq {
 
 	public String getAfterFindLoginPwUri() {
 		return getEncodedCurrentUri();
+	}
+	
+	public String getTodayDate() {
+		Date nowDate = new Date();
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd"); 
+    	// 원하는 데이터 포맷 지정
+		String strNowDate = simpleDateFormat.format(nowDate); 
+    	// 지정한 포맷으로 변환 
+		return strNowDate;
 	}
 }
