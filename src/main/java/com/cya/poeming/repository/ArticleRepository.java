@@ -191,4 +191,22 @@ public interface ArticleRepository {
 						""")
 	public Article getArticle(int id);
 
+	@Update("""
+			<script>
+				UPDATE article
+				SET bookmark = bookmark + 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	public int increaseBookmarkPoint(int relId);
+	
+	@Update("""
+			<script>
+				UPDATE article
+				SET bookmark = bookmark - 1
+				WHERE id = #{relId}
+			</script>
+			""")
+	public int decreaseBookmarkPoint(int relId);
+
 }

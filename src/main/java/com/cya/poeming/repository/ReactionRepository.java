@@ -16,7 +16,7 @@ public interface ReactionRepository {
 				AND RP.relId = #{relId}
 				AND RP.memberId = #{actorId}
 			</script>
-						""")
+			""")
 	int getSumReactionPointByMemberId(int actorId, String relTypeCode, int relId);
 	
 	@Insert("""
@@ -54,7 +54,7 @@ public interface ReactionRepository {
 				AND RP.memberId = #{actorId}
 				AND RP.`point` = 1;
 			</script>
-						""")
+			""")
 	int getGoodReactionPointByMemberId(int actorId, String relTypeCode, int relId);
 
 	@Select("""
@@ -66,7 +66,7 @@ public interface ReactionRepository {
 				AND RP.memberId = #{actorId}
 				AND RP.`point` = -1;
 			</script>
-						""")
+			""")
 	int getBadReactionPointByMemberId(int actorId, String relTypeCode, int relId);
 
 	@Delete("""
@@ -90,4 +90,33 @@ public interface ReactionRepository {
 			</script>
 			""")
 	void deleteBadReactionPoint(int actorId, String relTypeCode, int relId);
+
+	@Insert("""
+			<script>
+				INSERT INTO bookmark
+				SET regDate = NOW(),
+				memberId = #{actorId},
+				relId = #{relId};
+			</script>
+			""")
+	void addBookmark(int actorId, int relId);
+
+	@Delete("""
+			<script>
+				DELETE FROM bookmark
+				WHERE relId = #{relId}
+				AND memberId = #{actorId};
+			</script>
+			""")
+	void deleteBookmark(int actorId, int relId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM bookmark
+				WHERE relId = #{relId}
+				AND memberId = #{actorId};
+			</script>
+			""")
+	int checkBookmarkedByMemberId(int actorId, int relId);
 }

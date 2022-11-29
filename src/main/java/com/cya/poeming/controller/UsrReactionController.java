@@ -12,108 +12,139 @@ import com.cya.poeming.vo.Rq;
 @Controller
 public class UsrReactionController {
 	@Autowired
-	private ReactionService reactionPointService;
+	private ReactionService reactionService;
 	@Autowired
 	private Rq rq;
 	
-	@RequestMapping("/usr/reactionPoint/doGoodReaction")
+	@RequestMapping("/usr/reaction/doGoodReaction")
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isFail()) {
 			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
-		ResultData addGoodReactionPointRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData addGoodReactionPointRd = reactionService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
 		return rq.jsReplace(addGoodReactionPointRd.getMsg(), replaceUri);
 	}
 	
-	@RequestMapping("/usr/reactionPoint/doBadReaction")
+	@RequestMapping("/usr/reaction/doBadReaction")
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isFail()) {
 			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
-		ResultData addBadReactionPointRd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData addBadReactionPointRd = reactionService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
 		return rq.jsReplace(addBadReactionPointRd.getMsg(), replaceUri);
 	}
 	
-	@RequestMapping("/usr/reactionPoint/doCancelGoodReaction")
+	@RequestMapping("/usr/reaction/doCancelGoodReaction")
 	@ResponseBody
 	public String doCancelGoodReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isSuccess()) {
 			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
-		ResultData deleteGoodReactionPointRd = reactionPointService.deleteGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData deleteGoodReactionPointRd = reactionService.deleteGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
 		return rq.jsReplace(deleteGoodReactionPointRd.getMsg(), replaceUri);
 	}
 	
-	@RequestMapping("/usr/reactionPoint/doCancelBadReaction")
+	@RequestMapping("/usr/reaction/doCancelBadReaction")
 	@ResponseBody
 	public String doCancelBadReaction(String relTypeCode, int relId, String replaceUri) {
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId);
 
 		if (actorCanMakeReactionRd.isSuccess()) {
 			return rq.jsHistoryBack(actorCanMakeReactionRd.getMsg());
 		}
 		
-		ResultData deleteBadReactionPointRd = reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
+		ResultData deleteBadReactionPointRd = reactionService.deleteBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 		
 		return rq.jsReplace(deleteBadReactionPointRd.getMsg(), replaceUri);
 	}
 	
-	@RequestMapping("/usr/reactionPoint/checkActorMakeReplyReaction")
+	@RequestMapping("/usr/reaction/doBookmark")
 	@ResponseBody
-	public boolean checkActorMakeReplyReaction(int id) {
+	public String doBookmark(int relId, String replaceUri) {
 		
-		if(rq.getLoginedMember() == null) {
-			return false;
+		ResultData actorCanMakeBookmarkRd = reactionService.actorCanMakeBookmark(rq.getLoginedMemberId(), relId);
+
+		if (actorCanMakeBookmarkRd.isFail()) {
+			return rq.jsHistoryBack(actorCanMakeBookmarkRd.getMsg());
 		}
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", id);
+		ResultData addBookmarkRd = reactionService.addBookmark(rq.getLoginedMemberId(), relId);
 
-		return actorCanMakeReactionRd.isSuccess();
+		return rq.jsReplace(addBookmarkRd.getMsg(), replaceUri);	
 	}
 	
-	@RequestMapping("/usr/reactionPoint/checkActorCanCancelReplyReaction")
+	@RequestMapping("/usr/reaction/doCancelBookmark")
 	@ResponseBody
-	public boolean checkActorCanCancelReplyReaction(int relId, String reaction) {
+	public String doCancelBookmark(int relId, String replaceUri) {
 		
-		if(rq.getLoginedMember() == null) {
-			return false;
-		}
-		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", relId);
+		ResultData actorCanMakeBookmarkRd = reactionService.actorCanMakeBookmark(rq.getLoginedMemberId(), relId);
 
-		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
-			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
-			
-			if (sumReactionPointByMemberId > 0) {
-				if(reaction.equals("good")) {
-					return true;
-				}
-			} else {
-				if(reaction.equals("bad")) {
-					return true;
-				}
-			}
-			
+		if (actorCanMakeBookmarkRd.isSuccess()) {
+			return rq.jsHistoryBack(actorCanMakeBookmarkRd.getMsg());
 		}
 		
-		return false;
+		ResultData deleteBookmarkRd = reactionService.deleteBookmark(rq.getLoginedMemberId(), relId);
+		
+		return rq.jsReplace(deleteBookmarkRd.getMsg(), replaceUri);
 	}
+	
+//	댓글 좋아요 기능 시도중
+//	@RequestMapping("/usr/reaction/checkActorMakeReplyReaction")
+//	@ResponseBody
+//	public boolean checkActorMakeReplyReaction(int id) {
+//		
+//		if(rq.getLoginedMember() == null) {
+//			return false;
+//		}
+//		
+//		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", id);
+//
+//		return actorCanMakeReactionRd.isSuccess();
+//	}
+//	
+//	@RequestMapping("/usr/reaction/checkActorCanCancelReplyReaction")
+//	@ResponseBody
+//	public boolean checkActorCanCancelReplyReaction(int relId, String reaction) {
+//		
+//		if(rq.getLoginedMember() == null) {
+//			return false;
+//		}
+//		
+//		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", relId);
+//
+//		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
+//			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
+//			
+//			if (sumReactionPointByMemberId > 0) {
+//				if(reaction.equals("good")) {
+//					return true;
+//				}
+//			} else {
+//				if(reaction.equals("bad")) {
+//					return true;
+//				}
+//			}
+//			
+//		}
+//		
+//		return false;
+//	}
 }

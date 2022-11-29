@@ -50,10 +50,12 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 			ir.addPathPatterns("/usr/article/modify");
 			ir.addPathPatterns("/usr/article/doModify");
 			ir.addPathPatterns("/usr/article/doDelete");
-			ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
-			ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
-			ir.addPathPatterns("/usr/reactionPoint/doCancelGoodReaction");
-			ir.addPathPatterns("/usr/reactionPoint/doCancelBadReaction");
+			ir.addPathPatterns("/usr/reaction/doGoodReaction");
+			ir.addPathPatterns("/usr/reaction/doBadReaction");
+			ir.addPathPatterns("/usr/reaction/doCancelGoodReaction");
+			ir.addPathPatterns("/usr/reaction/doCancelBadReaction");
+			ir.addPathPatterns("/usr/reaction/doBookmark");
+			ir.addPathPatterns("/usr/reaction/doCancelBookmark");
 			
 			ir = registry.addInterceptor(needLogoutInterceptor);
 			ir.addPathPatterns("/usr/member/login");

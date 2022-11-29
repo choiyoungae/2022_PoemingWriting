@@ -100,19 +100,6 @@ ALTER TABLE article ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAU
 # 게시물 테이블에 badReactionPoint 칼럼 추가
 ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
-# 기존 게시물의 goodReactionPoint,badReactionPoint 필드의 값 채워주기
-UPDATE article AS A
-INNER JOIN (
-	SELECT RP.relTypeCode, RP.relId,
-	SUM(IF(RP.point > 0, RP.point, 0)) AS goodReactionPoint,
-	SUM(IF(RP.point < 0, RP.point * -1, 0)) AS badReactionPoint
-	FROM reactionPoint AS RP
-	GROUP BY RP.relTypeCode, RP.relId
-) AS RP_SUM
-ON A.id = RP_SUM.relId
-SET A.goodReactionPoint = RP_SUM.goodReactionPoint,
-A.badReactionPoint = RP_SUM.badReactionPoint;
-
 # 댓글 테이블 생성
 CREATE TABLE reply (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -123,6 +110,9 @@ CREATE TABLE reply (
     relId INT(10) UNSIGNED NOT NULL COMMENT '관련데이터번호',
     `body` TEXT NOT NULL
 );
+
+# 댓글 relId 칼럼를 article 테이블의 id의 외래키로 설정(연쇄삭제O)
+ALTER TABLE reply ADD FOREIGN KEY (relId) REFERENCES article(id) ON DELETE CASCADE;
 
 # 댓글 테이블에 goodReactionPoint 칼럼 추가
 ALTER TABLE reply ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
@@ -172,6 +162,12 @@ CREATE TABLE bookmark (
     memberId INT(10) UNSIGNED NOT NULL
 );
 
+# 책갈피 relId 칼럼를 article 테이블의 id의 외래키로 설정(연쇄삭제O)
+ALTER TABLE bookmark ADD FOREIGN KEY (relId) REFERENCES article(id) ON DELETE CASCADE;
+
+# article 테이블에 bookmark 칼럼 추가
+ALTER TABLE article ADD COLUMN bookmark INT(10) UNSIGNED NOT NULL;
+
 # 신고
 CREATE TABLE report (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -182,6 +178,12 @@ CREATE TABLE report (
     reason INT(10) UNSIGNED NOT NULL COMMENT 
     '신고사유 (1=스팸홍보/도배글, 2=음란물, 3=불법정보/저작권 침해, 4=욕설/생명경시/명예훼손/혐오/차별적 표현)'
 );
+
+# 신고 relId 칼럼를 article 테이블의 id의 외래키로 설정(연쇄삭제O)
+ALTER TABLE report ADD FOREIGN KEY (relId) REFERENCES article(id) ON DELETE CASCADE;
+
+# article 테이블에 report 칼럼 추가
+ALTER TABLE article ADD COLUMN report INT(10) UNSIGNED NOT NULL;
 
 #######################################################
 

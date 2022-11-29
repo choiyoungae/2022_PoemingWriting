@@ -154,4 +154,24 @@ public class ArticleService {
 	public Article getArticle(int id) {
 		return articleRepository.getArticle(id);
 	}
+
+	public ResultData increaseBookmarkPoint(int relId) {
+		int affectedRowsCount = articleRepository.increaseBookmarkPoint(relId);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다", "affectedRowsCount", affectedRowsCount);
+		}
+
+		return ResultData.from("S-1", "책갈피 증가", "affectedRowsCount", affectedRowsCount);
+	}
+
+	public ResultData decreaseBookmarkPoint(int relId) {
+		int affectedRowsCount = articleRepository.decreaseBookmarkPoint(relId);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물은 존재하지 않습니다", "affectedRowsCount", affectedRowsCount);
+		}
+
+		return ResultData.from("S-1", "책갈피 감소", "affectedRowsCount", affectedRowsCount);
+	}
 }

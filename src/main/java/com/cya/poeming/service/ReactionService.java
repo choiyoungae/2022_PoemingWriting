@@ -9,7 +9,7 @@ import com.cya.poeming.vo.ResultData;
 @Service
 public class ReactionService {
 	@Autowired
-	private ReactionRepository reactionPointRepository;
+	private ReactionRepository reactionRepository;
 	@Autowired
 	private ArticleService articleService;
 	@Autowired
@@ -20,7 +20,7 @@ public class ReactionService {
 			return ResultData.from("F-1", "로그인 후 이용해주세요.");
 		}
 		
-		int sumReactionPointByMemberId = reactionPointRepository.getSumReactionPointByMemberId(actorId, relTypeCode,
+		int sumReactionPointByMemberId = reactionRepository.getSumReactionPointByMemberId(actorId, relTypeCode,
 				relId);
 
 		if (sumReactionPointByMemberId != 0) {
@@ -31,7 +31,7 @@ public class ReactionService {
 	}
 
 	public ResultData addGoodReactionPoint(int actorId, String relTypeCode, int relId) {
-		reactionPointRepository.addGoodReactionPoint(actorId, relTypeCode, relId);
+		reactionRepository.addGoodReactionPoint(actorId, relTypeCode, relId);
 		
 		switch(relTypeCode) {
 		case "article":
@@ -45,7 +45,7 @@ public class ReactionService {
 	}
 
 	public ResultData addBadReactionPoint(int actorId, String relTypeCode, int relId) {
-		reactionPointRepository.addBadReactionPoint(actorId, relTypeCode, relId);
+		reactionRepository.addBadReactionPoint(actorId, relTypeCode, relId);
 		
 		switch(relTypeCode) {
 		case "article":
@@ -59,7 +59,7 @@ public class ReactionService {
 	}
 
 	public ResultData deleteGoodReactionPoint(int actorId, String relTypeCode, int relId) {
-		reactionPointRepository.deleteGoodReactionPoint(actorId, relTypeCode, relId);
+		reactionRepository.deleteGoodReactionPoint(actorId, relTypeCode, relId);
 		
 		switch(relTypeCode) {
 		case "article":
@@ -73,7 +73,7 @@ public class ReactionService {
 	}
 
 	public ResultData deleteBadReactionPoint(int actorId, String relTypeCode, int relId) {
-		reactionPointRepository.deleteBadReactionPoint(actorId, relTypeCode, relId);
+		reactionRepository.deleteBadReactionPoint(actorId, relTypeCode, relId);
 		
 		switch(relTypeCode) {
 		case "article":
@@ -85,4 +85,33 @@ public class ReactionService {
 		
 		return ResultData.from("S-1", "별로예요 취소 처리 되었습니다");
 	}
+
+	public ResultData actorCanMakeBookmark(int actorId, int relId) {
+		if(actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요.");
+		}
+		
+		int checkBookmarkByMemberId = reactionRepository.checkBookmarkedByMemberId(actorId, relId);
+
+		if (checkBookmarkByMemberId != 0) {
+			return ResultData.from("F-2", "책갈피 할 수 없습니다", "checkBookmarkByMemberId", checkBookmarkByMemberId);
+		}
+		
+		return ResultData.from("S-1", "책갈피 할 수 있습니다.");
+	}
+
+	public ResultData addBookmark(int actorId, int relId) {
+		reactionRepository.addBookmark(actorId, relId);
+		articleService.increaseBookmarkPoint(relId);
+		
+		return ResultData.from("S-1", "책갈피 처리 완료");
+	}
+
+	public ResultData deleteBookmark(int actorId, int relId) {
+		reactionRepository.deleteBookmark(actorId, relId);
+		articleService.decreaseBookmarkPoint(relId);
+		
+		return ResultData.from("S-1", "책갈피 취소 처리 완료");
+	}
+
 }

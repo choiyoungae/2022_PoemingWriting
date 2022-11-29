@@ -100,16 +100,16 @@
 							
 							<c:if test="${actorCanMakeReaction }">
 								<span>&nbsp;</span>
-								<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }"
+								<a href="/usr/reaction/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }"
 								 class="btn btn-outline btn-xs">좋아요 👍</a>
 								<span>&nbsp;</span>
-								<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }"
+								<a href="/usr/reaction/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }"
 								 class="btn btn-outline btn-xs">별로예요 👎</a>
 							</c:if>
 							
 							<c:if test="${actorCanCancelGoodReaction}">
 								<span>&nbsp;</span>
-								<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri} "
+								<a href="/usr/reaction/doCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri} "
 								 class="btn btn-xs">좋아요 👍</a>
 								<span>&nbsp;</span>
 								<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#"
@@ -121,7 +121,7 @@
 								<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#"
 								 class="btn btn-outline btn-xs">좋아요👍</a>
 								<span>&nbsp;</span>
-								<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+								<a href="/usr/reaction/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
 								 class="btn btn-xs">별로예요 👎</a>
 							</c:if>
 						</td>
@@ -136,6 +136,19 @@
 			</c:if>
 			<c:if test="${not empty param.listUri}">
 				<a class="btn-text-link btn btn-active btn-ghost" href="${param.listUri }">뒤로가기</a>
+			</c:if>
+			<c:if test="${!article.extra__actorCanDelete }">
+				<a class="btn-text-link btn btn-ghost" href="../reaction/report?relId=${article.id }">신고</a>
+				<c:if test="${actorCanMakeBookmark }">
+					<a class="btn-text-link btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+						<i class="fa-regular fa-bookmark"></i>
+					</a>
+				</c:if>
+				<c:if test="${!actorCanMakeBookmark }">
+					<a class="btn-text-link btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+						<i class="fa-solid fa-bookmark"></i>
+					</a>
+				</c:if>
 			</c:if>
 			<c:if test="${article.extra__actorCanModify }">
 				<a class="btn-text-link btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
@@ -234,16 +247,16 @@
 								<!-- 자신이 쓴 댓글이 아닐 경우(일단 뜨는 부분만 처리. 기능 구현 중) -->
 								<c:if test="${reply.memberId != rq.getLoginedMemberId() }">
 									<span>&nbsp;</span>
-									<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
+									<a href="/usr/reaction/doGoodReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
 									 class="btn btn-outline btn-xs">좋아요 👍</a>
 									<span>&nbsp;</span>
-									<a href="/usr/reactionPoint/doBadReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
+									<a href="/usr/reaction/doBadReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
 									 class="btn btn-outline btn-xs">별로예요 👎</a>
 								</c:if>
 								
-<%-- 								<c:if test="/usr/reactionPoint/checkActorCanCancelReaction?relId=${reply.id }&actorId=${rq.getLoginedMemberId() }&reaction=good"> --%>
+<%-- 								<c:if test="/usr/reaction/checkActorCanCancelReaction?relId=${reply.id }&actorId=${rq.getLoginedMemberId() }&reaction=good"> --%>
 <!-- 									<span>&nbsp;</span> -->
-<%-- 									<a href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri} " --%>
+<%-- 									<a href="/usr/reaction/doCancelGoodReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri} " --%>
 <!-- 									 class="btn btn-xs">좋아요 👍</a> -->
 <!-- 									<span>&nbsp;</span> -->
 <!-- 									<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#" -->
@@ -255,7 +268,7 @@
 <!-- 									<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#" -->
 <!-- 									 class="btn btn-outline btn-xs">좋아요👍</a> -->
 <!-- 									<span>&nbsp;</span> -->
-<%-- 									<a href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri}" --%>
+<%-- 									<a href="/usr/reaction/doCancelBadReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri}" --%>
 <!-- 									 class="btn btn-xs">별로예요 👎</a> -->
 <%-- 								</c:if> --%>
 							</td>

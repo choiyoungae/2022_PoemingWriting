@@ -29,7 +29,7 @@ public class UsrArticleController {
 	@Autowired
 	private BoardService boardService;
 	@Autowired
-	private ReactionService reactionPointService;
+	private ReactionService reactionService;
 	@Autowired
 	private ReplyService replyService;
 	@Autowired
@@ -103,7 +103,7 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 		
-		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
+		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), "article", id);
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());
 		
@@ -118,6 +118,10 @@ public class UsrArticleController {
 			
 		}
 		
+		ResultData actorCanMakeBookmarkRd = reactionService.actorCanMakeBookmark(rq.getLoginedMemberId(), id);
+		model.addAttribute("actorCanMakeBookmark", actorCanMakeBookmarkRd.isSuccess());
+		
+		// 댓글 리스팅 관련
 		int repliesInAPage = 5;
 		
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id, repliesInAPage, replyPage);
