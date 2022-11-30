@@ -56,6 +56,7 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 			ir.addPathPatterns("/usr/reaction/doCancelBadReaction");
 			ir.addPathPatterns("/usr/reaction/doBookmark");
 			ir.addPathPatterns("/usr/reaction/doCancelBookmark");
+			ir.addPathPatterns("/usr/reaction/doReport");
 			
 			ir = registry.addInterceptor(needLogoutInterceptor);
 			ir.addPathPatterns("/usr/member/login");

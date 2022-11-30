@@ -118,5 +118,27 @@ public interface ReactionRepository {
 				AND memberId = #{actorId};
 			</script>
 			""")
-	int checkBookmarkedByMemberId(int actorId, int relId);
+	int checkBookmarkByMemberId(int actorId, int relId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM report
+				WHERE relId = #{relId}
+				AND reportingMemberId = #{actorId};
+			</script>
+			""")
+	int checkReportByMemberId(int actorId, int relId);
+
+	@Insert("""
+			<script>
+				INSERT INTO report
+				SET regDate = NOW(),
+				relId = #{relId},
+				reportedMemberId = #{reportedMemberId},
+				reportingMemberId = #{reportingMemberId},
+				reason = #{reason};
+			</script>
+			""")
+	void doReport(int relId, int reportedMemberId, int reportingMemberId, int reason);
 }

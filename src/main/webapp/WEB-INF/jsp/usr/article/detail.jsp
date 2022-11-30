@@ -35,6 +35,10 @@
 		ArticleDetail__increaseHitCount();
 	})
 	
+	function toggleReportForm() {
+		$('.reportFormWrap').toggleClass('hidden');
+		$('.report-form-btn').toggleClass('btn-active');
+	}
 // 	댓글 리액션 처리중
 // 	function actorCanMakeReplyReaction(relId) {
 		
@@ -132,29 +136,48 @@
 		
 		<div class="btns">
 			<c:if test="${empty param.listUri}">
-				<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+				<button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 			</c:if>
 			<c:if test="${not empty param.listUri}">
-				<a class="btn-text-link btn btn-active btn-ghost" href="${param.listUri }">뒤로가기</a>
+				<a class="btn btn-ghost" href="${param.listUri }">뒤로가기</a>
 			</c:if>
 			<c:if test="${!article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-ghost" href="../reaction/report?relId=${article.id }">신고</a>
-				<c:if test="${actorCanMakeBookmark }">
-					<a class="btn-text-link btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+				<a class="btn btn-ghost report-form-btn" onclick="toggleReportForm()">신고</a>
+				<div class="reportFormWrap hidden">
+					<form name="report" action="../reaction/doReport">
+						<input type="hidden" name="relId" value="${article.id }" />
+						<input type="hidden" name="reportedMemberId" value="${article.memberId }" />
+						<label class="report-label"><input type="radio" name="reason" value="1" required />스팸홍보/도배글</label>
+						<label class="report-label"><input type="radio" name="reason" value="2" />음란물</label>
+						<label class="report-label"><input type="radio" name="reason" value="3" />불법정보/저작권 침해</label>
+						<label class="report-label"><input type="radio" name="reason" value="4" />욕설/생명경시/명예훼손/혐오/차별적 표현</label>
+<%-- 						<input type="hidden" name="replaceUri" value="${rq.encodedCurrentUri }" /> --%>
+						<button class="btn btn-ghost btn-active report-btn" type="submit" value="신고" >신고하기</button>
+					</form>
+				</div>
+				<c:if test="${!rq.isLogined() }">
+					<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
 						<i class="fa-regular fa-bookmark"></i>
 					</a>
 				</c:if>
-				<c:if test="${!actorCanMakeBookmark }">
-					<a class="btn-text-link btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
-						<i class="fa-solid fa-bookmark"></i>
-					</a>
+				<c:if test="${rq.isLogined() }">
+					<c:if test="${actorCanMakeBookmark }">
+						<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+							<i class="fa-regular fa-bookmark"></i>
+						</a>
+					</c:if>
+					<c:if test="${!actorCanMakeBookmark }">
+						<a class="btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+							<i class="fa-solid fa-bookmark"></i>
+						</a>
+					</c:if>
 				</c:if>
 			</c:if>
 			<c:if test="${article.extra__actorCanModify }">
-				<a class="btn-text-link btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
+				<a class="btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
 			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../article/doDelete?id=${article.id }">삭제</a>
+				<a class="btn btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../article/doDelete?id=${article.id }">삭제</a>
 			</c:if>
 		</div>
 	
@@ -200,7 +223,7 @@
 			</form>
 		</c:if>
 		<c:if test="${rq.notLogined }">
-			<a class="btn-text-link btn  btn-ghost" href="${rq.loginUri}">로그인</a> 후 이용해주세요
+			<a class="btn  btn-ghost" href="${rq.loginUri}">로그인</a> 후 이용해주세요
 		</c:if>
 		
 		<h2 class="mt-5">댓글 목록</h2>
@@ -237,10 +260,10 @@
 							<td>
 								<!-- 자신이 쓴 댓글일 경우 -->
 								<c:if test="${reply.extra__actorCanModify }">
-									<a class="btn-text-link" href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">수정</a>
+									<a href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">수정</a>
 								</c:if>
 								<c:if test="${reply.extra__actorCanDelete }">
-									<a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" 
+									<a onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" 
 									href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">삭제</a>
 								</c:if>
 								

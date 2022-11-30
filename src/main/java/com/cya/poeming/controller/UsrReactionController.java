@@ -106,6 +106,23 @@ public class UsrReactionController {
 		return rq.jsReplace(deleteBookmarkRd.getMsg(), replaceUri);
 	}
 	
+	@RequestMapping("/usr/reaction/doReport")
+	@ResponseBody
+	public String doReport(int relId, int reportedMemberId, int reason) {
+		
+		int reportingMemberId = rq.getLoginedMemberId();
+		
+		ResultData actorCanReportRd = reactionService.actorCanMakeReport(reportingMemberId, relId);
+
+		if (actorCanReportRd.isFail()) {
+			return rq.jsHistoryBack(actorCanReportRd.getMsg());
+		}
+		
+		ResultData doReportRd = reactionService.doReport(relId, reportedMemberId, reportingMemberId, reason);
+
+		return rq.jsHistoryBack(doReportRd.getMsg());	
+	}
+	
 //	댓글 좋아요 기능 시도중
 //	@RequestMapping("/usr/reaction/checkActorMakeReplyReaction")
 //	@ResponseBody

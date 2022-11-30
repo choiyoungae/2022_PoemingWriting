@@ -91,7 +91,7 @@ public class ReactionService {
 			return ResultData.from("F-1", "로그인 후 이용해주세요.");
 		}
 		
-		int checkBookmarkByMemberId = reactionRepository.checkBookmarkedByMemberId(actorId, relId);
+		int checkBookmarkByMemberId = reactionRepository.checkBookmarkByMemberId(actorId, relId);
 
 		if (checkBookmarkByMemberId != 0) {
 			return ResultData.from("F-2", "책갈피 할 수 없습니다", "checkBookmarkByMemberId", checkBookmarkByMemberId);
@@ -112,6 +112,26 @@ public class ReactionService {
 		articleService.decreaseBookmarkPoint(relId);
 		
 		return ResultData.from("S-1", "책갈피 취소 처리 완료");
+	}
+
+	public ResultData actorCanMakeReport(int actorId, int relId) {
+		if(actorId == 0) {
+			return ResultData.from("F-1", "로그인 후 이용해주세요.");
+		}
+		
+		int checkReportByMemberId = reactionRepository.checkReportByMemberId(actorId, relId);
+
+		if (checkReportByMemberId != 0) {
+			return ResultData.from("F-2", "신고할 수 없습니다", "checkReportByMemberId", checkReportByMemberId);
+		}
+		
+		return ResultData.from("S-1", "신고할 수 있습니다.");
+	}
+
+	public ResultData doReport(int relId, int reportedMemberId, int reportingMemberId, int reason) {
+		reactionRepository.doReport(relId, reportedMemberId, reportingMemberId, reason);
+		
+		return ResultData.from("S-1", "신고 처리 완료");
 	}
 
 }

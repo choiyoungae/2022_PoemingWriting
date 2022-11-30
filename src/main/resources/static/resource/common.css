@@ -29,13 +29,6 @@ html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, htm
 	padding: 10px;
 	text-align: center;
 }
-.btn-text-link {
-	color: grey;
-}
-.btn-text-link:hover {
-	text-decoration: underline;
-	color: #333;
-}
 
 /* 커스텀 */
 body {
@@ -148,4 +141,25 @@ body {
 
 .toggle-btn.active>div:last-child {
 	transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+
+/* 신고창 */
+.reportFormWrap {
+	z-index: 100;
+	position: absolute;
+	background-color: white;
+	display: inline-block;
+	border: 1px solid black;
+	font-size: 15px;
+	padding: 10px;
+}
+.reportFormWrap .report-label {
+	display: block;
+}
+.reportFormWrap .report-label input {
+	margin-right: 5px;
+}
+.report-btn {
+	width: 100%;
+	margin-top: 10px;
 }
