@@ -38,6 +38,15 @@
 	function toggleReportForm() {
 		$('.reportFormWrap').toggleClass('hidden');
 		$('.report-form-btn').toggleClass('btn-active');
+		$('.report-word').toggleClass('hidden');
+		$('.report-close-icon').toggleClass('hidden');
+	}
+	
+	function isFormHidden() {
+		if($('.reportFormWrap').hasClass('hidden')) {
+			return true;
+		}
+		return false;
 	}
 // 	댓글 리액션 처리중
 // 	function actorCanMakeReplyReaction(relId) {
@@ -142,7 +151,10 @@
 				<a class="btn btn-ghost" href="${param.listUri }">뒤로가기</a>
 			</c:if>
 			<c:if test="${!article.extra__actorCanDelete }">
-				<a class="btn btn-ghost report-form-btn" onclick="toggleReportForm()">신고</a>
+				<a class="btn btn-ghost report-form-btn" onclick="toggleReportForm()">
+					<p class="report-word">신고</p>
+					<p class="report-close-icon hidden"><i class="fa-solid fa-xmark"></i></p>
+				</a>
 				<div class="reportFormWrap hidden">
 					<form name="report" action="../reaction/doReport">
 						<input type="hidden" name="relId" value="${article.id }" />
