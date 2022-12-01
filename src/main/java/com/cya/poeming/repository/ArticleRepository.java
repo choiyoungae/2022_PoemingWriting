@@ -208,5 +208,26 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public int decreaseBookmarkPoint(int relId);
+	
+	@Select("""
+			<script>
+				SELECT A.*, B.name AS extra__boardName
+				FROM article AS A 
+				LEFT JOIN board AS B
+				ON A.boardId = B.id
+				WHERE A.memberId = #{memberId};
+			</script>
+			""")
+	public List<Article> getForPrintArticlesByMemberId(int memberId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM article
+				WHERE memberId = #{memberId}
+				ORDER BY id DESC;
+			</script>
+			""")
+	public int getArticlesCountByMemberId(int memberId);
 
 }

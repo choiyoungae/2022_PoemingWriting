@@ -1,5 +1,7 @@
 package com.cya.poeming.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cya.poeming.service.MemberService;
 import com.cya.poeming.util.Ut;
+import com.cya.poeming.vo.Article;
+import com.cya.poeming.vo.Board;
 import com.cya.poeming.vo.Member;
 import com.cya.poeming.vo.ResultData;
 import com.cya.poeming.vo.Rq;

@@ -43,8 +43,7 @@
 						<th></th>
 						<td>
 							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}"
-								class="btn btn-active btn-ghost"
-							> 회원정보수정 </a>
+								class="btn btn-active btn-ghost"> 회원정보수정 </a>
 						</td>
 					</tr>
 				</tbody>
@@ -53,12 +52,10 @@
 		
 		<div class="btns">
 			<button class="btn-text-link btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-			<c:if test="${article.extra__actorCanModify }">
-				<a class="btn-text-link btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
-			</c:if>
-			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;" href="../article/doDelete?id=${article.id }">삭제</a>
-			</c:if>
+			<a href="../article/myArticles"
+			class="btn btn-ghost"> 내가 쓴 글 보기 </a>
+			<a href="../article/myBookmarks"
+			class="btn btn-ghost"> 책갈피 글 보기 </a>
 		</div>
 	
 	</div>

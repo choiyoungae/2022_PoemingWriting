@@ -96,6 +96,24 @@ public class UsrArticleController {
 		return "usr/article/list";
 	}
 	
+	@RequestMapping("/usr/article/myArticles")
+	public String showMyArticles(Model model) {
+
+		List<Article> articles = articleService.getForPrintArticlesByMemberId(rq.getLoginedMemberId());
+		int articlesCount = articleService.getArticlesCountByMemberId(rq.getLoginedMemberId());
+		
+		model.addAttribute("articles", articles);
+		model.addAttribute("articlesCount", articlesCount);
+		
+		return "usr/article/myArticles";
+	}
+	
+	@RequestMapping("/usr/article/myBookmarks")
+	public String showMyBookmarks() {
+		
+		return "usr/article/myBookmarks";
+	}
+	
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id, @RequestParam(defaultValue = "1") int replyPage) {
 

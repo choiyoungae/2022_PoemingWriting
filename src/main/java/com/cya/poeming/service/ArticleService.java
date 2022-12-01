@@ -174,4 +174,14 @@ public class ArticleService {
 
 		return ResultData.from("S-1", "책갈피 감소", "affectedRowsCount", affectedRowsCount);
 	}
+
+	public List<Article> getForPrintArticlesByMemberId(int memberId) {
+		List<Article> articles = articleRepository.getForPrintArticlesByMemberId(memberId);
+		
+		return articles;
+	}
+
+	public int getArticlesCountByMemberId(int memberId) {
+		return articleRepository.getArticlesCountByMemberId(memberId);
+	}
 }

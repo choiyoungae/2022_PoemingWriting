@@ -22,6 +22,7 @@ public class Article {
 	private int report;
 	
 	private String extra__writerName;
+	private String extra__boardName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
 	
