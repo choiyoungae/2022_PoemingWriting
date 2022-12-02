@@ -184,4 +184,14 @@ public class ArticleService {
 	public int getArticlesCountByMemberId(int memberId) {
 		return articleRepository.getArticlesCountByMemberId(memberId);
 	}
+
+	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId) {
+		List<Article> articles = articleRepository.getForPrintBookmarkedArticlesByMemberId(memberId);
+		
+		return articles;
+	}
+
+	public int getBookmarkedArticlesCountByMemberId(int memberId) {
+		return articleRepository.getBookmarkedArticlesCountByMemberId(memberId);
+	}
 }

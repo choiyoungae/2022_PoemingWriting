@@ -42,4 +42,11 @@ public class Article {
 	public String getForPrintBody() {
 		return body.replaceAll("\n", "<br />");
 	}
+	
+	public String getForPrintType1Title() {
+		if(title.length() > 5) {
+			return title.substring(0,5) + "<br />...";
+		}
+		return title;
+	}
 }

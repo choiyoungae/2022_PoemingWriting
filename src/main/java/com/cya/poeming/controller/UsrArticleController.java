@@ -109,7 +109,13 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/myBookmarks")
-	public String showMyBookmarks() {
+	public String showMyBookmarks(Model model) {
+		
+		List<Article> articles = articleService.getForPrintBookmarkedArticlesByMemberId(rq.getLoginedMemberId());
+		int articlesCount = articleService.getBookmarkedArticlesCountByMemberId(rq.getLoginedMemberId());
+		
+		model.addAttribute("articles", articles);
+		model.addAttribute("articlesCount", articlesCount);
 		
 		return "usr/article/myBookmarks";
 	}

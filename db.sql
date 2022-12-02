@@ -166,7 +166,7 @@ CREATE TABLE bookmark (
 ALTER TABLE bookmark ADD FOREIGN KEY (relId) REFERENCES article(id) ON DELETE CASCADE;
 
 # article 테이블에 bookmark 칼럼 추가
-ALTER TABLE article ADD COLUMN bookmark INT(10) UNSIGNED NOT NULL;
+ALTER TABLE article ADD COLUMN bookmark INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 # 신고
 CREATE TABLE report (
@@ -183,7 +183,7 @@ CREATE TABLE report (
 ALTER TABLE report ADD FOREIGN KEY (relId) REFERENCES article(id) ON DELETE CASCADE;
 
 # article 테이블에 report 칼럼 추가
-ALTER TABLE article ADD COLUMN report INT(10) UNSIGNED NOT NULL;
+ALTER TABLE article ADD COLUMN report INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 #######################################################
 

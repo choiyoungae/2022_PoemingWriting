@@ -215,7 +215,8 @@ public interface ArticleRepository {
 				FROM article AS A 
 				LEFT JOIN board AS B
 				ON A.boardId = B.id
-				WHERE A.memberId = #{memberId};
+				WHERE A.memberId = #{memberId}
+				ORDER BY id DESC;
 			</script>
 			""")
 	public List<Article> getForPrintArticlesByMemberId(int memberId);
@@ -224,10 +225,33 @@ public interface ArticleRepository {
 			<script>
 				SELECT COUNT(*)
 				FROM article
-				WHERE memberId = #{memberId}
-				ORDER BY id DESC;
+				WHERE memberId = #{memberId};
 			</script>
 			""")
 	public int getArticlesCountByMemberId(int memberId);
+
+	@Select("""
+			<script>
+				SELECT * FROM article
+				WHERE id IN (
+				    SELECT relId FROM bookmark
+				    WHERE memberId = #{memberId}
+				)
+				ORDER BY id DESC;
+			</script>
+			""")
+	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId);
+
+	@Select("""
+			<script>
+				SELECT COUNT(*)
+				FROM article
+				WHERE id IN (
+				    SELECT relId FROM bookmark
+				    WHERE memberId = #{memberId}
+				);
+			</script>
+			""")
+	public int getBookmarkedArticlesCountByMemberId(int memberId);
 
 }
