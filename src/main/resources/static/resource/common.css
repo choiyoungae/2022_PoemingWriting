@@ -210,3 +210,12 @@ body {
 	text-align: center;
 	padding-top: 10px;
 }
+
+/* myPage 페이지 */
+.btns {
+	position: relative;
+}
+.withdraw-btn {
+	position: absolute;
+	right: 0;
+}

@@ -56,6 +56,8 @@
 			class="btn btn-ghost"> 내가 쓴 글 보기 </a>
 			<a href="../article/myBookmarks"
 			class="btn btn-ghost"> 책갈피 글 보기 </a>
+			<a href="../member/doWithdraw" onclick="if(confirm('${rq.getLoginedMember().getNickname()}님, 정말 탈퇴하시겠습니까?\n작성된 게시글들은 자동으로 삭제되지 않습니다.') == false) return false;"
+			class="btn btn-ghost withdraw-btn"> 탈퇴하기 </a>
 		</div>
 	
 	</div>

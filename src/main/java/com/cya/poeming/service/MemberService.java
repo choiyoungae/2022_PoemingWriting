@@ -103,4 +103,8 @@ public class MemberService {
 	private void setTempPassword(Member actor, String tempPassword) {
 		memberRepository.modifyMember(actor.getId(), Ut.sha256(tempPassword), null, null, null, null);
 	}
+
+	public void withdrawMember(int actorId) {
+		memberRepository.withdrawMember(actorId);
+	}
 }

@@ -96,11 +96,22 @@ public interface MemberRepository {
 	public void modifyMember(int id, String loginPw, String name, String nickname, String cellphoneNum, String email);
 
 	@Select("""
-			SELECT *
-			FROM `member` AS M
-			WHERE M.name = #{name}
-			AND M.email = #{email}
-				""")
+			<script>
+				SELECT *
+				FROM `member` AS M
+				WHERE M.name = #{name}
+				AND M.email = #{email}
+			</script>
+			""")
 	public Member getMemberByNameAndEmail(String name, String email);
+
+	@Update("""
+			<script>
+				UPDATE `member`
+				SET delStatus = 1
+				WHERE id = #{actorId};
+			</script>			
+			""")
+	public void withdrawMember(int actorId);
 
 }

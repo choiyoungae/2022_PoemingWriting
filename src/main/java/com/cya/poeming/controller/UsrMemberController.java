@@ -88,6 +88,10 @@ public class UsrMemberController {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
+		if(member.isDelStatus()) {
+			return rq.jsHistoryBack("탈퇴한 회원입니다.");
+		}
+		
 		rq.login(member);
 		
 		return rq.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), afterLoginUri);
@@ -151,6 +155,17 @@ public class UsrMemberController {
 	public String showMyPage() {
 		
 		return "usr/member/myPage";
+	}
+	
+	@RequestMapping("/usr/member/doWithdraw")
+	@ResponseBody
+	public String doWithdraw(@RequestParam(defaultValue = "/") String afterLogoutUri) {
+		
+		memberService.withdrawMember(rq.getLoginedMemberId());
+
+		rq.logout();
+		
+		return rq.jsReplace("회원 탈퇴 처리되었습니다.", afterLogoutUri);
 	}
 	
 	@RequestMapping("/usr/member/checkPassword")

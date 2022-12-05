@@ -48,19 +48,6 @@
 		}
 		return false;
 	}
-// 	댓글 리액션 처리중
-	function actorCanMakeReplyReaction(id) {
-		alert("ACMRR");
-		
-		$.get('../reaction/actorCanMakeReplyReaction', {
-			id : id,
-			ajaxMode : 'Y'
-			
-		}, function(data) {
-			return true;
-			
-		}, 'json');
-	}
 </script>
 
 <section class="mt-8 text-xl">
