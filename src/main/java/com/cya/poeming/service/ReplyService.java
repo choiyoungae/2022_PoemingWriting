@@ -15,6 +15,8 @@ import com.cya.poeming.vo.ResultData;
 public class ReplyService {
 	@Autowired
 	private ReplyRepository replyRepository;
+	@Autowired
+	private ReactionService reactionService;
 
 	public ResultData<Integer> writeReply(int actorId, String relTypeCode, int relId, String body) {
 		replyRepository.writeArticle(actorId, relTypeCode, relId, body);
@@ -45,6 +47,26 @@ public class ReplyService {
 
 		ResultData actorCanModifyRd = actorCanModify(actor, reply);
 		reply.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
+		
+		// 댓글 리액션 관련
+		ResultData actorCanMakeReplyReactionRd = reactionService.actorCanMakeReaction(actor.getId(), "reply", reply.getId());
+		reply.setExtra__actorCanMakeReplyReaction(actorCanMakeReplyReactionRd.isSuccess());
+		
+		if(actor.getId() == reply.getMemberId()) {
+			reply.setExtra__actorCanMakeReplyReaction(false);
+			
+		}
+		
+		if (actorCanMakeReplyReactionRd.getResultCode().equals("F-2")) {
+			int sumReactionPointByMemberId = (int) actorCanMakeReplyReactionRd.getData1();
+			
+			if (sumReactionPointByMemberId > 0) {
+				reply.setExtra__actorCanCancelGoodReplyReaction(true);
+			} else {
+				reply.setExtra__actorCanCancelBadReplyReaction(true);
+			}
+			
+		}
 	}
 
 	public ResultData actorCanDelete(Member actor, Reply reply) {
@@ -70,7 +92,6 @@ public class ReplyService {
 		
 		return ResultData.from("S-1", "수정 가능");
 	}
-
 
 	public int getRepliesCount(int id) {
 		return replyRepository.getRepliesCount("article", id);

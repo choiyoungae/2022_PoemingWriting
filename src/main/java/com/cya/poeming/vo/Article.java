@@ -44,8 +44,8 @@ public class Article {
 	}
 	
 	public String getForPrintType1Title() {
-		if(title.length() > 5) {
-			return title.substring(0,5) + "<br />...";
+		if(title.length() > 10) {
+			return title.substring(0,10) + "<br />...";
 		}
 		return title;
 	}

@@ -21,6 +21,9 @@ public class Reply {
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
+	private boolean extra__actorCanMakeReplyReaction;
+	private boolean extra__actorCanCancelGoodReplyReaction;
+	private boolean extra__actorCanCancelBadReplyReaction;
 
 	public String getForPrintType1RegDate() {
 		return regDate.substring(2, 16).replace(" ", "<br />");

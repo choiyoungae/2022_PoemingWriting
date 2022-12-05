@@ -122,46 +122,4 @@ public class UsrReactionController {
 
 		return rq.jsHistoryBack(doReportRd.getMsg());	
 	}
-	
-//	댓글 좋아요 기능 시도중
-//	@RequestMapping("/usr/reaction/checkActorMakeReplyReaction")
-//	@ResponseBody
-//	public boolean checkActorMakeReplyReaction(int id) {
-//		
-//		if(rq.getLoginedMember() == null) {
-//			return false;
-//		}
-//		
-//		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", id);
-//
-//		return actorCanMakeReactionRd.isSuccess();
-//	}
-//	
-//	@RequestMapping("/usr/reaction/checkActorCanCancelReplyReaction")
-//	@ResponseBody
-//	public boolean checkActorCanCancelReplyReaction(int relId, String reaction) {
-//		
-//		if(rq.getLoginedMember() == null) {
-//			return false;
-//		}
-//		
-//		ResultData actorCanMakeReactionRd = reactionService.actorCanMakeReaction(rq.getLoginedMemberId(), "reply", relId);
-//
-//		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
-//			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
-//			
-//			if (sumReactionPointByMemberId > 0) {
-//				if(reaction.equals("good")) {
-//					return true;
-//				}
-//			} else {
-//				if(reaction.equals("bad")) {
-//					return true;
-//				}
-//			}
-//			
-//		}
-//		
-//		return false;
-//	}
 }

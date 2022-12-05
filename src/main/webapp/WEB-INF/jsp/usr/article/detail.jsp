@@ -49,17 +49,18 @@
 		return false;
 	}
 // 	댓글 리액션 처리중
-// 	function actorCanMakeReplyReaction(relId) {
+	function actorCanMakeReplyReaction(id) {
+		alert("ACMRR");
 		
-// 		$.get('../article/checkActorMakeReplyReactionRd', {
-// 			relId : relId,
-// 			ajaxMode : 'Y'
+		$.get('../reaction/actorCanMakeReplyReaction', {
+			id : id,
+			ajaxMode : 'Y'
 			
-// 		}, function(data) {
-// 			$('.article-detail__hit-count').empty().html(data.data1);
+		}, function(data) {
+			return true;
 			
-// 		}, 'json');
-// 	}
+		}, 'json');
+	}
 </script>
 
 <section class="mt-8 text-xl">
@@ -279,8 +280,8 @@
 									href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">삭제</a>
 								</c:if>
 								
-								<!-- 자신이 쓴 댓글이 아닐 경우(일단 뜨는 부분만 처리. 기능 구현 중) -->
-								<c:if test="${reply.memberId != rq.getLoginedMemberId() }">
+								<!-- 자신이 쓴 댓글이 아닐 경우 -->
+								<c:if test="${reply.extra__actorCanMakeReplyReaction }">
 									<span>&nbsp;</span>
 									<a href="/usr/reaction/doGoodReaction?relTypeCode=reply&relId=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
 									 class="btn btn-outline btn-xs">좋아요 👍</a>
@@ -289,23 +290,23 @@
 									 class="btn btn-outline btn-xs">별로예요 👎</a>
 								</c:if>
 								
-<%-- 								<c:if test="/usr/reaction/checkActorCanCancelReaction?relId=${reply.id }&actorId=${rq.getLoginedMemberId() }&reaction=good"> --%>
-<!-- 									<span>&nbsp;</span> -->
-<%-- 									<a href="/usr/reaction/doCancelGoodReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri} " --%>
-<!-- 									 class="btn btn-xs">좋아요 👍</a> -->
-<!-- 									<span>&nbsp;</span> -->
-<!-- 									<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#" -->
-<!-- 									 class="btn btn-outline btn-xs">별로예요👎</a> -->
-<%-- 								</c:if> --%>
+								<c:if test="${reply.extra__actorCanCancelGoodReplyReaction }">
+									<span>&nbsp;</span>
+									<a href="/usr/reaction/doCancelGoodReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri} "
+									 class="btn btn-xs">좋아요 👍</a>
+									<span>&nbsp;</span>
+									<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#"
+									 class="btn btn-outline btn-xs">별로예요👎</a>
+								</c:if>
 								
-<%-- 								<c:if test="${actorCanCancelBadReplyReaction}"> --%>
-<!-- 									<span>&nbsp;</span> -->
-<!-- 									<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#" -->
-<!-- 									 class="btn btn-outline btn-xs">좋아요👍</a> -->
-<!-- 									<span>&nbsp;</span> -->
-<%-- 									<a href="/usr/reaction/doCancelBadReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri}" --%>
-<!-- 									 class="btn btn-xs">별로예요 👎</a> -->
-<%-- 								</c:if> --%>
+								<c:if test="${reply.extra__actorCanCancelBadReplyReaction }">
+									<span>&nbsp;</span>
+									<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#"
+									 class="btn btn-outline btn-xs">좋아요👍</a>
+									<span>&nbsp;</span>
+									<a href="/usr/reaction/doCancelBadReaction?relTypeCode=reply&relId=${reply.id}&replaceUri=${rq.encodedCurrentUri}"
+									 class="btn btn-xs">별로예요 👎</a>
+								</c:if>
 							</td>
 						</tr>
 					</c:forEach>

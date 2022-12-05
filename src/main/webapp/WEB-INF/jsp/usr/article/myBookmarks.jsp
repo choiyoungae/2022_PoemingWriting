@@ -6,7 +6,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<div class="bookmarkedArticle-wrapper flex flex-wrap dropShadow-black">
+		<div class="bookmarkedArticle-wrapper white-board flex flex-wrap dropShadow-black">
 			<c:forEach var="article" items="${articles }">
 				<a class="bookmarkedArticle dropShadow-black" href="${rq.getArticleDetailUriFromArticleList(article) }">
 					<p class="bookmarkedArticle-title">${article.getForPrintType1Title() }</p>
