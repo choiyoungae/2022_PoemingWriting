@@ -1,37 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:set var="pageTitle" value="${board.name } 게시판" />
+<%-- <c:set var="pageTitle" value="${board.name }" /> --%>
 <%@ include file="../common/head.jspf" %>
+
+<script>
+$(document).ready(function() {
+	// notice 게시판
+	if(${board.id} == 1) {
+		$('.white-board').addClass('dropShadow-black');
+		$('.searchInput').addClass('myGray');
+		$('.searchSelect').addClass('myGray');
+		$('.circle-btn').addClass('myGray-bgc');
+		$('.page-btn-active').addClass('myGray-bgc');
+		$('.hoverLine').hover(function() {
+			$(this).children().addClass('myGray-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myGray-bgc-hover');
+		})
+		$('.page-btn').hover(function() {
+			$(this).children().addClass('myGray-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myGray-bgc-hover');
+		})
+	}
+	
+	// poeming 게시판
+	if(${board.id} == 2) {
+	}
+
+	// writing 게시판
+	if(${board.id} == 3) {
+	}
+})
+</script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<div class="flex justify-between items-center">
-			<div class="articleCountNum">게시물 갯수 : ${articlesCount }개</div>
+		<div class="flex items-center justify-between searchInput-wrap">
+			<h1 class="subPage-title">${board.name }</h1>
 			<div>
 				<form class="table-box-type-1" method="POST" action="../article/list">
 					<input type="hidden" name="boardId" value="${param.boardId }" />
-					<select class="select select-bordered lh-48px" name="searchKeywordTypeCode">
+					<select class="select select-bordered searchSelect lh-48px" name="searchKeywordTypeCode">
 						<option disabled>검색</option>
 						<option value="title">제목</option>
 						<option value="body">내용</option>
 						<option value="title,body">제목 + 내용</option>
 					</select>
-					<input class="w-96 searchInput lh-48px" type="text" name="searchKeyword" placeholder="검색할 내용을 입력해주세요" value="${param.searchKeyword }" />
-					<button class="btn btn-ghost lh-48px" type="submit" value="검색" />검색</button>
+					<input class="w-96 searchInput" type="text" name="searchKeyword" value="${param.searchKeyword }" />
+					<button class="btn btn-active btn-ghost circle-btn" type="submit" value="검색" >
+						<i class="fa-solid fa-magnifying-glass"></i>
+					</button>
 				</form>
 			</div>
-			<div>
-				<a class="mb-2 btn btn-active btn-ghost" href="../article/write">게시물 작성하기</a>
-			</div>
 		</div>
-		<div class="table-box-type-1">
+		<div class="table-box-type-1 table-wrapper white-board">
 			<table class="table w-full">
 				<colgroup>
 					<col width="80" />
 					<col />
-					<col width="140" />
-					<col width="140" />
+					<col width="200" />
+					<col width="200" />
 					<col width="80" />
 					<col width="80" />
 				</colgroup>
@@ -49,7 +79,7 @@
 				
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-						<tr class="hover">
+						<tr class="hoverLine">
 							<td>${article.id }</td>
 							<td><a href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title }</a></td>
 							<td>${article.extra__writerName }</td>
@@ -74,6 +104,12 @@
 					</c:if>
 				</tbody>
 			</table>
+			
+			<div>
+				<a class="mb-2 btn btn-active btn-ghost circle-btn write-btn" href="../article/write">
+					<i class="fa-solid fa-pen-fancy"></i>
+				</a>
+			</div>
 		</div>
 		<div class="mt-3 flex justify-center">
 			<div class="btn-group">
@@ -95,7 +131,7 @@
 				<!-- 페이지 번호 표시 -->
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
 					<a href="${pageBaseUri }&page=${i }">
-						<p class="btn btn-ghost ${page == i ? 'btn-active' : '' }">
+						<p class="btn btn-ghost page-btn ${page == i ? 'page-btn-active' : '' }">
 							${i }
 						</p>
 					</a>

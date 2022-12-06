@@ -12,7 +12,7 @@
     font-style: normal;
 }
 
-html > body > header {
+html > body > header, .subPage-title {
 	font-family: 'MICEGothic Bold';
 }
 html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, html>body .ProseMirror, html>body .toastui-editor-md-mode {
@@ -25,12 +25,19 @@ html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, htm
 	width: 100%;
 }
 .table-box-type-1>table th, .table-box-type-1>table td {
-	border: 1px solid black;
-	padding: 10px;
 	text-align: center;
+}
+.table-box-type-1 thead > tr > th {
+	background-color: transparent;
+	font-size: 22px;
+	position:relative !important;
+	top: -20px;
 }
 
 /* 커스텀 */
+.subPage-title {
+	font-size: 30px;
+}
 body {
 	min-height: 100vh;
 	min-width: 800px;
@@ -58,100 +65,51 @@ body {
 	width: 200px;
 }
 .searchInput {
-	line-height: 46px;
-	background-color: #d3d4d7;
-	padding-left: 10px;
+	background-color: #fffcf9;
+	line-height: 50px;
 	box-sizing: border-box;
-	border-radius: 5px;
+	width: 200px;
+	border-bottom: 2px solid;
 }
 .searchInput:focus {
 	outline: none;
-}
-.dropShadow-black {
-	box-shadow: 0px 4px 15px 0px rgba(0,0,0,.08);
 }
 .white-board {
 	border-radius: 30px;
 	padding: 5%;
 	background-color: white;
 	box-sizing: border-box;
+	position: relative;
+}
+
+/* colorConcept */
+
+/* #727272 */
+.dropShadow-black {
+	box-shadow: 0px 4px 15px 0px rgba(0,0,0,.08);
+}
+.myGray {
+	border-color: #727272;
+	color: #727272;
+}
+.myGray-bgc {
+	background-color: #727272 !important;
+}
+.myGray-bgc-hover {
+	background-color: rgba(114, 114, 114, 0.3);	
+}
+/* .hoverLine:hover td { */
+/* 	background-color: rgba(114, 114, 114, 0.3); */
+/* } */
+.hoverLine:hover td:first-child {
+	border-radius: 30px 0 0 30px;
+}
+.hoverLine:hover td:last-child {
+	border-radius: 0 30px 30px 0;
 }
 
 .Popup {
 	font-size: 3rem;
-}
-
-/* 팝업시 나오는 요소 */
-.layer {
-	display: none;
-	width: 500px;
-	height: 500px;
-	background-color: black;
-	color: white;
-	border: 10px solid gold;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translateX(-50%) translateY(-50%);
-	z-index: 11;
-}
-
-.layer>h2, .layer>button {
-	padding: 20px;
-}
-
-/* 팝업 닫기 버튼(close) */
-.layer>button {
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
-	border: 5px solid white;
-	border-radius: 10px;
-}
-
-.layer-bg {
-	display: none;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, .4);
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
-}
-
-/* 팝업 닫기 버튼(x) */
-.toggle-btn {
-	width: 30px;
-	height: 30px;
-	position: relative;
-	right: 10px;
-	top: 10px;
-}
-
-.toggle-btn>div {
-	position: absolute;
-	top: 30%;
-	left: 50%;
-	width: 100%;
-	height: 10%;
-	background-color: white;
-	transition: transform .3s cubic-bezier(1, -0.96, .03, 1.35), top .3s cubic-bezier(1, .09, 0, 1.25);
-	transform: translateX(-50%) translateY(-50%) rotate(0);
-}
-
-.toggle-btn>div:last-child {
-	top: 70%;
-	transform: translateX(-50%) translateY(-50%) rotate(0);
-}
-
-.toggle-btn.active>div {
-	top: 50%;
-	transform: translateX(-50%) translateY(-50%) rotate(45deg);
-}
-
-.toggle-btn.active>div:last-child {
-	transform: translateX(-50%) translateY(-50%) rotate(-45deg);
 }
 
 /* 신고창 */
@@ -218,4 +176,34 @@ body {
 .withdraw-btn {
 	position: absolute;
 	right: 0;
+}
+
+/* list 페이지 */
+.searchInput-wrap {
+	margin-bottom: 20px;
+}
+.table-wrapper {
+	height: 600px;
+}
+.circle-btn {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+}
+.circle-btn i {
+	font-size: 25px;
+	color: white;
+}
+.page-btn {
+	border-radius: 50%;
+}
+.page-btn-active {
+	border-radius: 50%;
+	color: white;
+	font-size: 20px;
+}
+.write-btn {
+	position: absolute;
+	right: 20px;
+	bottom: 15px;
 }

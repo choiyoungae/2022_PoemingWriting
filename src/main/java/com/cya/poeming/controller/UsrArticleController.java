@@ -81,7 +81,7 @@ public class UsrArticleController {
 			return rq.jsHistoryBack("존재하지 않는 게시판입니다.");
 		}
 
-		int itemsInAPage = 10;
+		int itemsInAPage = 7;
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage, page, searchKeywordTypeCode, searchKeyword);
 		

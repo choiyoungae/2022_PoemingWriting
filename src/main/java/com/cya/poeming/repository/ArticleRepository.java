@@ -254,4 +254,17 @@ public interface ArticleRepository {
 			""")
 	public int getBookmarkedArticlesCountByMemberId(int memberId);
 
+	@Select("""
+			<script>
+				SELECT A.*, M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE A.boardId = #{boardId}
+				ORDER BY A.id DESC
+				LIMIT 0,#{count};
+			</script>
+			""")
+	public List<Article> getLimitedArticlesByBoardId(int boardId, int count);
+
 }

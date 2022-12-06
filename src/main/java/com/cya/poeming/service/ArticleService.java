@@ -194,4 +194,8 @@ public class ArticleService {
 	public int getBookmarkedArticlesCountByMemberId(int memberId) {
 		return articleRepository.getBookmarkedArticlesCountByMemberId(memberId);
 	}
+
+	public List<Article> getLimitedArticlesByBoardId(int boardId, int count) {
+		return articleRepository.getLimitedArticlesByBoardId(boardId, count);
+	}
 }

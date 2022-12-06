@@ -91,7 +91,7 @@ public class UsrMemberController {
 		if(member.isDelStatus()) {
 			return rq.jsHistoryBack("탈퇴한 회원입니다.");
 		}
-		
+
 		rq.login(member);
 		
 		return rq.jsReplace(Ut.f("%s님 반갑습니다.", member.getNickname()), afterLoginUri);
