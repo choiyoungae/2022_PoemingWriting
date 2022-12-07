@@ -36,7 +36,7 @@ html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, htm
 
 /* 커스텀 */
 .subPage-title {
-	font-size: 30px;
+	font-size: 35px;
 }
 body {
 	min-height: 100vh;
@@ -241,4 +241,19 @@ body {
 	right: 20px;
 	bottom: 15px;
 	background-color: #e24b4b !important;
+}
+
+/* main 페이지 */
+.main-table-wrapper {
+	padding: 2%;
+	height: 380px;
+}
+.main-subPage {
+	width: 48%;
+}
+.main-subPage:nth-child(2) {
+	float: left;
+}
+.main-subPage:last-child {
+	float: right;
 }
