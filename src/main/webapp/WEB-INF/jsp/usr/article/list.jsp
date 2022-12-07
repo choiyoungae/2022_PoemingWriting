@@ -9,8 +9,10 @@ $(document).ready(function() {
 	// notice 게시판
 	if(${board.id} == 1) {
 		$('.white-board').addClass('dropShadow-black');
-		$('.searchInput').addClass('myGray');
-		$('.searchSelect').addClass('myGray');
+		$('.subPage-title').addClass('myGray');
+		$('.list-title').addClass('myGray');
+		$('.searchInput').addClass('myGray-border');
+		$('.searchSelect').addClass('myGray-border');
 		$('.circle-btn').addClass('myGray-bgc');
 		$('.page-btn-active').addClass('myGray-bgc');
 		$('.hoverLine').hover(function() {
@@ -27,10 +29,44 @@ $(document).ready(function() {
 	
 	// poeming 게시판
 	if(${board.id} == 2) {
+		$('.white-board').addClass('dropShadow-pink');
+		$('.subPage-title').addClass('myPink');
+		$('.list-title').addClass('myPink');
+		$('.searchInput').addClass('myPink-border');
+		$('.searchSelect').addClass('myPink-border');
+		$('.circle-btn').addClass('myPink-bgc');
+		$('.page-btn-active').addClass('myPink-bgc');
+		$('.hoverLine').hover(function() {
+			$(this).children().addClass('myPink-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myPink-bgc-hover');
+		})
+		$('.page-btn').hover(function() {
+			$(this).children().addClass('myPink-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myPink-bgc-hover');
+		})
 	}
 
 	// writing 게시판
 	if(${board.id} == 3) {
+		$('.white-board').addClass('dropShadow-green');
+		$('.subPage-title').addClass('myGreen');
+		$('.list-title').addClass('myGreen');
+		$('.searchInput').addClass('myGreen-border');
+		$('.searchSelect').addClass('myGreen-border');
+		$('.circle-btn').addClass('myGreen-bgc');
+		$('.page-btn-active').addClass('myGreen-bgc');
+		$('.hoverLine').hover(function() {
+			$(this).children().addClass('myGreen-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myGreen-bgc-hover');
+		})
+		$('.page-btn').hover(function() {
+			$(this).children().addClass('myGreen-bgc-hover');
+		}, function() {			
+			$(this).children().removeClass('myGreen-bgc-hover');
+		})
 	}
 })
 </script>
@@ -68,12 +104,12 @@ $(document).ready(function() {
 				
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-						<th>조회</th>
-						<th>책갈피</th>
+						<th class="list-title">번호</th>
+						<th class="list-title">제목</th>
+						<th class="list-title">작성자</th>
+						<th class="list-title">작성일</th>
+						<th class="list-title">조회</th>
+						<th class="list-title">책갈피</th>
 					</tr>
 				</thead>
 				
@@ -111,7 +147,7 @@ $(document).ready(function() {
 				</a>
 			</div>
 		</div>
-		<div class="mt-3 flex justify-center">
+		<div class="mt-5 flex justify-center">
 			<div class="btn-group">
 				<!-- 현재 페이지 번호의 앞뒤에 몇 개의 페이지 번호를 보여줄지 결정 -->
 				<c:set var="pageMenuLen" value="4" />
