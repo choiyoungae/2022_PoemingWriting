@@ -22,6 +22,21 @@
 
 <link rel="stylesheet" href="/resource/common.css" />
 <script src="/resource/common.js" defer="defer"></script>
+<script>
+$(document).ready(function() {
+	$('.menu-btn').click(function() {
+		$('.menu-bar-wrapper').addClass('active');
+	})
+	
+	$('.menu-close-btn').click(function() {
+		$('.menu-bar-wrapper').removeClass('active');
+	})
+	
+	$('.menu-bar-wrapper').click(function() {
+		$('.menu-bar-wrapper').removeClass('active');
+	})
+})
+</script>
 </head>
 <body>
 	
@@ -33,63 +48,67 @@
 			
 			<div class="flex-grow"></div>
 			
-			<ul class="flex">
-				<li class="hover:underline">
-					<a href="/" class="h-full flex items-center px-3">
-						<span>HOME</span>
-					</a>
-				</li>
-				<c:if test="${rq.logined}">
-					<li class="hover:underline">
+			<div class="flex items-center px-3">
+				<button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+			</div>
+			
+		</div>
+	</header>
+	
+	<div class="menu-bar-wrapper">
+		<div class="menu-bar dropShadow-black myGray">
+			<button class="menu-close-btn"><i class="fa-solid fa-xmark"></i></button>
+			<div class="menus">
+				<ul>
+					<c:if test="${!rq.logined}">
+						<li class="hover:underline">
+							<a class="h-full px-3 flex items-center" href="${rq.loginUri }">
+								<span>LOGIN</span>
+							</a>
+						</li>
+						<li class="hover:underline">
+							<a class="h-full px-3 flex items-center" href="${rq.joinUri }">
+								<span>JOIN</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${rq.logined}">
+						<li class="hover:underline">
+							<a class="h-full px-3 flex items-center" href="${rq.logoutUri}">
+								<span>LOGOUT</span>
+							</a>
+						</li>
+						<li class="hover:underline">
 							<a href="/usr/member/myPage" class="h-full flex items-center px-3">
 								<span>MYPAGE</span>
 							</a>
-					</li>
-				</c:if>
-				<li class="hover:underline">
-					<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
-						<span>NOTICE</span>
-					</a>
-				</li>
-				<li class="hover:underline">
-					<a href="/usr/article/list?boardId=2" class="h-full flex items-center px-3">
-						<span>POEMING</span>
-					</a>
-				</li>
-				<li class="hover:underline">
-					<a href="/usr/article/list?boardId=3" class="h-full flex items-center px-3">
-						<span>WRITING</span>
-					</a>
-				</li>
-				<c:if test="${!rq.logined}">
-					<li class="hover:underline">
-						<a class="h-full px-3 flex items-center" href="${rq.loginUri }">
-							<span>LOGIN</span>
+						</li>
+					</c:if>
+					<li class="hover:underline menu-notice">
+						<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
+							<span>NOTICE</span>
 						</a>
 					</li>
 					<li class="hover:underline">
-						<a class="h-full px-3 flex items-center" href="${rq.joinUri }">
-							<span>JOIN</span>
+						<a href="/usr/article/list?boardId=2" class="h-full flex items-center px-3">
+							<span>POEMING</span>
 						</a>
 					</li>
-				</c:if>
-				<c:if test="${rq.logined}">
+					<li class="hover:underline menu-writing">
+						<a href="/usr/article/list?boardId=3" class="h-full flex items-center px-3">
+							<span>WRITING</span>
+						</a>
+					</li>
 					<li class="hover:underline">
-						<a class="h-full px-3 flex items-center" href="${rq.logoutUri}">
-							<span>LOGOUT</span>
+						<a class="h-full px-3 flex items-center" href="/usr/home/map">
+							<span>MAP</span>
 						</a>
 					</li>
-				</c:if>
-				
-				<li class="hover:underline">
-					<a class="h-full px-3 flex items-center" href="/usr/home/map">
-						<span>MAP</span>
-					</a>
-				</li>
-				
-			</ul>
+					
+				</ul>
+			</div>
 		</div>
-	</header>
+	</div>
 	
 	<section class="my-3 text-2xl">
 		<div class="container mx-auto px-3">
