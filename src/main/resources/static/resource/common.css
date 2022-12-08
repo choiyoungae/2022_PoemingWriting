@@ -348,3 +348,8 @@ body {
 .text-left-must {
 	text-align: left !important;
 }
+.two-btns-last {
+	border: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
