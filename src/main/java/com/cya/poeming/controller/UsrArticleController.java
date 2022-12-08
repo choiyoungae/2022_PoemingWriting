@@ -97,25 +97,33 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/myArticles")
-	public String showMyArticles(Model model) {
+	public String showMyArticles(Model model, @RequestParam(defaultValue = "1") int page) {
+		
+		int itemsInAPage = 7;
 
-		List<Article> articles = articleService.getForPrintArticlesByMemberId(rq.getLoginedMemberId());
+		List<Article> articles = articleService.getForPrintArticlesByMemberId(rq.getLoginedMemberId(), itemsInAPage, page);
 		int articlesCount = articleService.getArticlesCountByMemberId(rq.getLoginedMemberId());
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("pagesCount", (int)Math.ceil((double)articlesCount/itemsInAPage));
+		model.addAttribute("page", page);
 		
 		return "usr/article/myArticles";
 	}
 	
 	@RequestMapping("/usr/article/myBookmarks")
-	public String showMyBookmarks(Model model) {
+	public String showMyBookmarks(Model model, @RequestParam(defaultValue = "1") int page) {
 		
-		List<Article> articles = articleService.getForPrintBookmarkedArticlesByMemberId(rq.getLoginedMemberId());
+		int itemsInAPage = 6;
+		
+		List<Article> articles = articleService.getForPrintBookmarkedArticlesByMemberId(rq.getLoginedMemberId(), itemsInAPage, page);
 		int articlesCount = articleService.getBookmarkedArticlesCountByMemberId(rq.getLoginedMemberId());
 		
 		model.addAttribute("articles", articles);
 		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("pagesCount", (int)Math.ceil((double)articlesCount/itemsInAPage));
+		model.addAttribute("page", page);
 		
 		return "usr/article/myBookmarks";
 	}

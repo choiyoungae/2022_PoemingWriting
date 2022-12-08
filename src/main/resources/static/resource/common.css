@@ -181,6 +181,9 @@ body {
 }
 
 /* myBookmark 페이지 */
+.myBookmarks-btns {
+	top: 0;
+}
 .bookmarkedArticle {
 	border-radius: 10px;
 	width: 30%;

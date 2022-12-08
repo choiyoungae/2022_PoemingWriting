@@ -216,10 +216,13 @@ public interface ArticleRepository {
 				LEFT JOIN board AS B
 				ON A.boardId = B.id
 				WHERE A.memberId = #{memberId}
-				ORDER BY id DESC;
+				ORDER BY id DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>;
 			</script>
 			""")
-	public List<Article> getForPrintArticlesByMemberId(int memberId);
+	public List<Article> getForPrintArticlesByMemberId(int memberId, int limitStart, int limitTake);
 
 	@Select("""
 			<script>
@@ -237,10 +240,13 @@ public interface ArticleRepository {
 				    SELECT relId FROM bookmark
 				    WHERE memberId = #{memberId}
 				)
-				ORDER BY id DESC;
+				ORDER BY id DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>;
 			</script>
 			""")
-	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId);
+	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId, int limitStart, int limitTake);
 
 	@Select("""
 			<script>

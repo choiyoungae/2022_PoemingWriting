@@ -175,8 +175,10 @@ public class ArticleService {
 		return ResultData.from("S-1", "책갈피 감소", "affectedRowsCount", affectedRowsCount);
 	}
 
-	public List<Article> getForPrintArticlesByMemberId(int memberId) {
-		List<Article> articles = articleRepository.getForPrintArticlesByMemberId(memberId);
+	public List<Article> getForPrintArticlesByMemberId(int memberId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getForPrintArticlesByMemberId(memberId, limitStart, limitTake);
 		
 		return articles;
 	}
@@ -185,8 +187,10 @@ public class ArticleService {
 		return articleRepository.getArticlesCountByMemberId(memberId);
 	}
 
-	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId) {
-		List<Article> articles = articleRepository.getForPrintBookmarkedArticlesByMemberId(memberId);
+	public List<Article> getForPrintBookmarkedArticlesByMemberId(int memberId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getForPrintBookmarkedArticlesByMemberId(memberId, limitStart, limitTake);
 		
 		return articles;
 	}
