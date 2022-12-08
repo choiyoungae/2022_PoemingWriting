@@ -1,53 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<c:set var="pageTitle" value="LOGIN" />
+<%-- <c:set var="pageTitle" value="LOGIN" /> --%>
 <%@ include file="../common/head.jspf" %>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		
-		<form class="table-box-type-1" method="POST" action="../member/doLogin">
-			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-			<table>
-				<colgroup>
-					<col width="200" />
-				</colgroup>
-				
-				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td>
-							<input class="w-96" type="text" name="loginId" placeholder="아이디를 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input class="w-96" type="password" name="loginPw" placeholder="비밀번호를 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th></th>
-						<td>
-							<button class="btn btn-ghost" type="submit" >로그인</button>
-						</td>
-					</tr>
-					<tr>
-						<th></th>
-						<td>
-							<a href="${rq.findLoginIdUri }" class="btn btn-active btn-ghost" type="submit">아이디 찾기</a>
-							<a href="${rq.findLoginPwUri }" class="btn btn-active btn-ghost" type="submit">비밀번호 찾기</a>
-							<a href="../member/join" class="btn btn-active btn-ghost" type="submit">회원가입</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-		
-		<div class="container mx-auto btns">
-			<button class="btn-text-link btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+		<h1 class="subPage-title lh-50px mb-20px">로그인</h1>
+		<div class="white-board mt-10 dropShadow-black">
+			<form class="table-box-type-1" method="POST" action="../member/doLogin" id="loginForm">
+				<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
+				<table>
+					<colgroup>
+						<col width="500" />
+					</colgroup>
+					
+					<tbody>
+						<tr class="lh-50px">
+							<th class="text-right-must pr-5">아이디</th>
+							<td class="text-left-must pl-5">
+								<input class="w-96 textInput" type="text" name="loginId" placeholder="ID" />
+							</td>
+						</tr>
+						<tr class="lh-50px">
+							<th class="text-right-must pr-5">비밀번호</th>
+							<td class="text-left-must pl-5">
+								<input class="w-96 textInput" type="password" name="loginPw" placeholder="PASSWORD" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</div>
+		
+		<div class="btns-wrap flex justify-center my-5">
+			<div>
+				<button class="btn btn-active myGray-bgc" type="submit" form="loginForm">로그인</button>
+			</div>
+		</div>
+			
+		<div class="btns-wrap flex justify-center">
+			<div class="under-btns">
+				<a href="${rq.findLoginIdUri }" class="hover:underline text-lg" type="submit">아이디 찾기</a>
+				<a href="${rq.findLoginPwUri }" class="hover:underline text-lg" type="submit">비밀번호 찾기</a>
+				<a href="../member/join" class="hover:underline text-lg" type="submit">회원가입</a>
+			</div>
+		</div>
+		
+<!-- 		<div class="container mx-auto btns"> -->
+<!-- 			<button class="btn-text-link btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button> -->
+<!-- 		</div> -->
 	
 	</div>
 	

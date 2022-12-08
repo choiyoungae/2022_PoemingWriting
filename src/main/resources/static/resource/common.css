@@ -35,6 +35,9 @@ html > body, html>body .toast-ui-editor, html>body .toastui-editor-contents, htm
 }
 
 /* 커스텀 */
+input:focus {
+	outline: none;
+}
 .subPage-title {
 	font-size: 35px;
 }
@@ -42,9 +45,18 @@ body {
 	min-height: 100vh;
 	min-width: 800px;
 	background-color: #fffcf9;
+	color: #404040;
+	max-width: 100vw;
+	overflow: hidden;
 }
 .lh-48px {
 	line-height: 48px;
+}
+.lh-50px {
+	line-height: 50px;
+}
+.mb-20px {
+	margin-bottom: 20px;
 }
 .btn-group .btn-active {
 	background-color: #d3d4d7;
@@ -96,6 +108,7 @@ body {
 }
 .myGray-bgc {
 	background-color: #727272 !important;
+	border: 0;
 }
 .myGray-bgc-hover {
 	background-color: rgba(114, 114, 114, 0.3);	
@@ -259,7 +272,10 @@ body {
 }
 
 /* menu-bar */
-.menu-bar-wrapper {
+.menu-bar-wrapper.active .menu-bar-background {
+	visibility: visible;
+}
+.menu-bar-background {
 	width: 100%;
 	height: 100%;
 	background-color: transparent;
@@ -268,12 +284,8 @@ body {
 	z-index: 5;
 	visibility:hidden;
 }
-.menu-bar-wrapper.active {
-	visibility: visible;
-}
 .menu-bar {
-	transition-property: right;
-    transition-duration: 2s;
+    transition: .5s;
 	width: 20%;
 	height: 100%;
 	background-color: #fff;
@@ -282,11 +294,9 @@ body {
 	right: -20%;
 	z-index: 10;
 	padding: 8% 5%;
-	display: none;
 }
 .menu-bar-wrapper.active .menu-bar {
 	right: 0;
-	display: block;
 }
 .menu-bar i {
 	font-size: 50px;
@@ -309,4 +319,29 @@ body {
 	border-bottom: 2px solid rgba(64, 64, 64, 0.5);
 	padding-bottom: 6%;
 	margin-bottom: 6%;
+}
+
+/* login */
+.under-btns {
+	font-family: 'MICEGothic Bold';
+}
+.under-btns a:first-child {
+	border-right: 2px solid #727272;
+	padding-right: 15px;
+	margin-right: 15px;
+}
+.under-btns a:last-child {
+	border-left: 2px solid #727272;
+	padding-left: 15px;
+	margin-left: 15px;
+}
+.textInput {
+	background-color: transparent;
+	border-bottom: 2px solid #727272;
+}
+.text-right-must {
+	text-align: right !important;
+}
+.text-left-must {
+	text-align: left !important;
 }

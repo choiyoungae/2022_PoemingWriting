@@ -32,7 +32,7 @@ $(document).ready(function() {
 		$('.menu-bar-wrapper').removeClass('active');
 	})
 	
-	$('.menu-bar-wrapper').click(function() {
+	$('.menu-bar-background').click(function() {
 		$('.menu-bar-wrapper').removeClass('active');
 	})
 })
@@ -41,7 +41,7 @@ $(document).ready(function() {
 <body>
 	
 	<header>
-		<div class="h-20 flex container mx-auto text-3xl">
+		<div class="h-20 flex container mx-auto text-4xl">
 			<a href="/" class="flex items-center px-3">
 				<span>로고</span>
 			</a>
@@ -56,6 +56,7 @@ $(document).ready(function() {
 	</header>
 	
 	<div class="menu-bar-wrapper">
+		<div class="menu-bar-background"></div>
 		<div class="menu-bar dropShadow-black myGray">
 			<button class="menu-close-btn"><i class="fa-solid fa-xmark"></i></button>
 			<div class="menus">
