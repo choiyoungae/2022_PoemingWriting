@@ -42,12 +42,9 @@ public interface ReplyRepository {
 				ON R.memberId = M.id
 				WHERE R.relId = #{relId}
 				AND R.relTypeCode = #{relTypeCode}
-				<if test="limitTake != -1">
-					LIMIT #{limitStart}, #{limitTake}
-				</if>
 			</script>
 			""")
-	List<Reply> getForPrintReplies(String relTypeCode, int relId, int limitStart, int limitTake);
+	List<Reply> getForPrintReplies(String relTypeCode, int relId);
 
 	@Select("""
 			<script>

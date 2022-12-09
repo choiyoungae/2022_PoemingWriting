@@ -34,7 +34,7 @@
 			<form class="table-box-type-1" method="POST" action="../member/doFindLoginId"
 				onsubmit="MemberFindLoginId__submit(this) ; return false;" id="findLoginForm">
 				<input type="hidden" name="afterFindLoginIdUri" value="${param.afterFindLoginIdUri}" />
-				<table class="formTable">
+				<table class="tableForm">
 					<colgroup>
 						<col width="500" />
 					</colgroup>

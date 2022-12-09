@@ -129,7 +129,7 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id, @RequestParam(defaultValue = "1") int replyPage) {
+	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -153,17 +153,15 @@ public class UsrArticleController {
 		ResultData actorCanMakeBookmarkRd = reactionService.actorCanMakeBookmark(rq.getLoginedMemberId(), id);
 		model.addAttribute("actorCanMakeBookmark", actorCanMakeBookmarkRd.isSuccess());
 		
-		// 댓글 리스팅 관련
-		int repliesInAPage = 5;
+//		// 댓글 리스팅 관련
+//		int repliesInAPage = 5;
 		
-		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id, repliesInAPage, replyPage);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMember(), "article", id);
 		
 		int repliesCount = replyService.getRepliesCount(id);
 
 		model.addAttribute("replies", replies);
 		model.addAttribute("repliesCount", repliesCount);
-		model.addAttribute("replyPagesCount", (int)Math.ceil((double)repliesCount/repliesInAPage));
-		model.addAttribute("replyPage", replyPage);
 		
 		return "usr/article/detail";
 	}

@@ -10,7 +10,7 @@
 		<div class="white-board mt-10 dropShadow-black">
 			<form class="table-box-type-1" method="POST" action="../member/doLogin" id="loginForm">
 				<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-				<table class="formTable">
+				<table class="tableForm">
 					<colgroup>
 						<col width="500" />
 					</colgroup>

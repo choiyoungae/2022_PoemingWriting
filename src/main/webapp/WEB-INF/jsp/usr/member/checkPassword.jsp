@@ -9,7 +9,7 @@
 		<div class="white-board mt-10 dropShadow-black">
 			<form class="table-box-type-1" method="POST" action="../member/doCheckPassword" id="checkPasswordForm">
 				<input type="hidden" name="replaceUri" value="${param.replaceUri }" />
-				<table class="formTable">
+				<table class="tableForm">
 					<colgroup>
 						<col width="500" />
 					</colgroup>

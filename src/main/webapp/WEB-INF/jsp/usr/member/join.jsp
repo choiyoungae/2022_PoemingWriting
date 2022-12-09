@@ -133,7 +133,7 @@
 		<div class="white-board mt-10 dropShadow-black">
 			<form class="table-box-type-1" id="joinForm" name="joinForm" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
 				<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-				<table class="formTable">
+				<table class="tableForm">
 					<colgroup>
 						<col width="500" />
 					</colgroup>

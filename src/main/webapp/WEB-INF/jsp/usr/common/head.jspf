@@ -43,7 +43,7 @@ $(document).ready(function() {
 	<header>
 		<div class="h-20 flex container mx-auto text-4xl">
 			<a href="/" class="flex items-center px-3">
-				<span>로고</span>
+				<span>PoemingWriting</span>
 			</a>
 			
 			<div class="flex-grow"></div>

@@ -34,7 +34,7 @@
 			<form class="table-box-type-1" method="POST" action="../member/doFindLoginPw"
 				onsubmit="MemberFindLoginPw__submit(this) ; return false;" id="findPasswordForm">
 				<input type="hidden" name="afterFindLoginPwUri" value="${param.afterFindLoginPwUri}" />
-				<table class="formTable">
+				<table class="tableForm">
 					<colgroup>
 						<col width="500" />
 					</colgroup>

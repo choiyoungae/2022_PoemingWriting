@@ -47,7 +47,7 @@ body {
 	background-color: #fffcf9;
 	color: #404040;
 	max-width: 100vw;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 .lh-48px {
 	line-height: 48px;
@@ -93,12 +93,19 @@ body {
 	box-sizing: border-box;
 	position: relative;
 }
+.white-board-reply {	
+	border-radius: 30px;
+	padding: 2% 5%;
+	background-color: white;
+	box-sizing: border-box;
+	position: relative;
+}
 
 /* colorConcept */
 
 /* #727272 */
 .dropShadow-black {
-	box-shadow: 0px 4px 15px 0px rgba(0,0,0,.08);
+	box-shadow: 0px 4px 15px 0px rgba(0,0,0,.2);
 }
 .myGray {
 	color: #434343;
@@ -198,6 +205,8 @@ body {
     background-size: cover;
     background-image:url(https://cdn.pixabay.com/photo/2014/09/27/17/35/dandelion-463928_960_720.jpg);
     position: relative;
+    top: 0;
+    transition: .1s;
 }
 .bookmarkedArticle:nth-child(3n) {
 	margin-right: 0;
@@ -217,6 +226,9 @@ body {
 .noArticleSign {
 	text-align: center;
 	padding-top: 10px;
+}
+.goUp {
+	top: -10px;
 }
 
 /* myPage 페이지 */
@@ -325,15 +337,15 @@ body {
 }
 
 
-/* formTable */
-.formTable tbody tr {
+/* tableForm */
+.tableForm tbody tr {
 	line-height: 50px;
 }
-.formTable tbody tr th {
+.tableForm tbody tr th {
 	text-align: right !important;
 	padding-right: 1.25rem;
 }
-.formTable tbody tr td {
+.tableForm tbody tr td {
 	text-align: left !important;
 	padding-left: 1.25rem;
 }
@@ -341,6 +353,7 @@ body {
 /* login */
 .under-btns {
 	font-family: 'MICEGothic Bold';
+	color: #727272;
 }
 .under-btns a:first-child {
 	border-right: 2px solid #727272;

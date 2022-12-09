@@ -4,9 +4,20 @@
 <%-- <c:set var="pageTitle" value="책갈피 글" /> --%>
 <%@ include file="../common/head.jspf" %>
 
+<script>
+$(document).ready(function() {
+	$('.bookmarkedArticle').hover(function() {
+		$(this).addClass('goUp');
+	}, function() {			
+		$(this).removeClass('goUp');
+	})
+	
+})
+</script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3 relative">
-		<h1 class="subPage-title lh-50px mb-20px">책갈피 글</h1>
+		<h1 class="subPage-title lh-50px mb-20px">내 책갈피 서재</h1>
 		
 		<div class="flex justify-center absolute right-0 myBookmarks-btns">
 			<div class="btn-group">

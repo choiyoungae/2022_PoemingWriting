@@ -29,6 +29,10 @@ public class Reply {
 		return regDate.substring(2, 16).replace(" ", "<br />");
 	}
 	
+	public String getForPrintType2RegDate() {
+		return regDate.substring(2, 16);
+	}
+	
 	public String getForPrintBody() {
 		return body.replaceAll("\n", "<br />");
 	}

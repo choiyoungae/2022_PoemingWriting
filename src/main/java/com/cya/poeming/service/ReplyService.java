@@ -25,10 +25,8 @@ public class ReplyService {
 		return ResultData.from("S-1", Ut.f("%d번 댓글이 등록되었습니다", id), "id", id);
 	}
 
-	public List<Reply> getForPrintReplies(Member actor, String relTypeCode, int relId, int repliesInAPage, int replyPage) {
-		int limitStart = (replyPage - 1) * repliesInAPage;
-		int limitTake = repliesInAPage;
-		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode, relId, limitStart, limitTake);
+	public List<Reply> getForPrintReplies(Member actor, String relTypeCode, int relId) {
+		List<Reply> replies = replyRepository.getForPrintReplies(relTypeCode, relId);
 		
 		for (Reply reply : replies) {
 			updateForPrintData(actor, reply);
