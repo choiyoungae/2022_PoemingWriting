@@ -34,21 +34,21 @@
 			<form class="table-box-type-1" method="POST" action="../member/doFindLoginPw"
 				onsubmit="MemberFindLoginPw__submit(this) ; return false;" id="findPasswordForm">
 				<input type="hidden" name="afterFindLoginPwUri" value="${param.afterFindLoginPwUri}" />
-				<table>
+				<table class="formTable">
 					<colgroup>
 						<col width="500" />
 					</colgroup>
 	
 					<tbody>
-						<tr class="lh-50px">
-							<th class="text-right-must pr-5">아이디</th>
-							<td class="text-left-must pl-5">
+						<tr>
+							<th>아이디</th>
+							<td>
 								<input class="w-96 textInput" name="loginId" type="text" placeholder="ID" />
 							</td>
 						</tr>
-						<tr class="lh-50px">
-							<th class="text-right-must pr-5">이메일</th>
-							<td class="text-left-must pl-5">
+						<tr>
+							<th>이메일</th>
+							<td>
 								<input class="w-96 textInput" name="email" type="text" placeholder="E-MAIL" />
 							</td>
 						</tr>

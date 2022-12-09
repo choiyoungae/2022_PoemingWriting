@@ -324,6 +324,20 @@ body {
 	margin-bottom: 6%;
 }
 
+
+/* formTable */
+.formTable tbody tr {
+	line-height: 50px;
+}
+.formTable tbody tr th {
+	text-align: right !important;
+	padding-right: 1.25rem;
+}
+.formTable tbody tr td {
+	text-align: left !important;
+	padding-left: 1.25rem;
+}
+
 /* login */
 .under-btns {
 	font-family: 'MICEGothic Bold';
@@ -352,4 +366,17 @@ body {
 	border: 0 !important;
 	padding: 0 !important;
 	margin: 0 !important;
+}
+
+/* join */
+.loginId-msg {
+	display: inline-block;
+	margin-left: 1.25rem;
+	font-family: 'MICEGothic Bold';
+}
+.loginPwConfirm-msg {
+	display: inline-block;
+	margin-left: 1.25rem;
+	font-family: 'MICEGothic Bold';
+	
 }

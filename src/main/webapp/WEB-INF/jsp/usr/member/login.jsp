@@ -10,21 +10,21 @@
 		<div class="white-board mt-10 dropShadow-black">
 			<form class="table-box-type-1" method="POST" action="../member/doLogin" id="loginForm">
 				<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-				<table>
+				<table class="formTable">
 					<colgroup>
 						<col width="500" />
 					</colgroup>
 					
 					<tbody>
-						<tr class="lh-50px">
-							<th class="text-right-must pr-5">아이디</th>
-							<td class="text-left-must pl-5">
+						<tr>
+							<th>아이디</th>
+							<td>
 								<input class="w-96 textInput" type="text" name="loginId" placeholder="ID" />
 							</td>
 						</tr>
-						<tr class="lh-50px">
-							<th class="text-right-must pr-5">비밀번호</th>
-							<td class="text-left-must pl-5">
+						<tr>
+							<th>비밀번호</th>
+							<td>
 								<input class="w-96 textInput" type="password" name="loginPw" placeholder="PASSWORD" />
 							</td>
 						</tr>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="JOIN" />
+<%-- <c:set var="pageTitle" value="JOIN" /> --%>
 <%@ include file="../common/head.jspf"%>
 
 <!-- lodash debounce -->
@@ -82,13 +82,21 @@
 			return;
 		}
 		
-		$('.loginId-msg').html('<div class="mt-2">확인중...</div>');
+		$('.loginId-msg').removeClass('myGreen');
+		$('.loginId-msg').removeClass('myPink');
+		$('.loginId-msg').html('<div>확인중...</div>');
 		
 		$.get('../member/getLoginIdDup', {
 			isAjax : 'Y',
 			loginId : form.loginId.value
 		}, function(data) {
-			$('.loginId-msg').html('<div class="mt-2">' + data.msg + '</div>');
+			if(data.resultCode == 'S-1') {
+				$('.loginId-msg').addClass('myGreen');
+			}
+			if(data.resultCode == 'F-A2') {				
+				$('.loginId-msg').addClass('myPink');
+			}
+			$('.loginId-msg').html('<div>' + data.msg + '</div>');
 			if (data.success) {
 				validLoginId = data.data1;
 			} else {
@@ -109,9 +117,9 @@
 		}
 		
 		if(form.loginPw.value != form.loginPwConfirm.value) {
-			$('.loginPwConfirm-msg').html('<div class="mt-2">불일치합니다.</div>');
+			$('.loginPwConfirm-msg').html('<div class="myPink">불일치합니다.</div>');
 		} else {
-			$('.loginPwConfirm-msg').html('<div class="mt-2">일치합니다.</div>');
+			$('.loginPwConfirm-msg').html('<div class="myGreen">일치합니다.</div>');
 		}
 	}
 	
@@ -121,75 +129,78 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" name="joinForm" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
-			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-			<table class="table table-zebra w-full">
-				<colgroup>
-					<col width="200" />
-				</colgroup>
-
-				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td>
-							<input name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력해주세요"
-							onkeyup="checkLoginIdDupDebounced(this);" autocomplete="off" />
-							<div class="loginId-msg"></div>
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td>
-							<input name="loginPw" type="password" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호를 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호 확인</th>
-						<td>
-							<input name="loginPwConfirm" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호 확인을 입력해주세요"
-							onkeyup="checkLoginPwConfirmedDebounced(this);" type="password" autocomplete="off" />
-							<div class="loginPwConfirm-msg"></div>
-						</td>
-					</tr>
-					<tr>
-						<th>이름</th>
-						<td>
-							<input name="name" class="w-full input input-bordered  max-w-xs" placeholder="이름을 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th>닉네임</th>
-						<td>
-							<input name="nickname" class="w-full input input-bordered  max-w-xs" placeholder="닉네임을 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td>
-							<input name="cellphoneNum" class="w-full input input-bordered  max-w-xs" placeholder="전화번호를 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>
-							<input name="email" class="w-full input input-bordered  max-w-xs" placeholder="이메일을 입력해주세요" />
-						</td>
-					</tr>
-					<tr>
-						<th></th>
-						<td>
-							<button class="btn btn-active btn-ghost" type="submit">회원가입</button>
-						</td>
-					</tr>
-				</tbody>
-
-			</table>
-		</form>
+		<h1 class="subPage-title lh-50px mb-20px">회원가입</h1>
+		<div class="white-board mt-10 dropShadow-black">
+			<form class="table-box-type-1" id="joinForm" name="joinForm" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+				<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
+				<table class="formTable">
+					<colgroup>
+						<col width="500" />
+					</colgroup>
+	
+					<tbody>
+						<tr>
+							<th>아이디</th>
+							<td>
+								<input name="loginId" class="w-96 textInput" placeholder="ID"
+								onkeyup="checkLoginIdDupDebounced(this);" autocomplete="off" />
+								<div class="loginId-msg"></div>
+							</td>
+						</tr>
+						<tr>
+							<th>비밀번호</th>
+							<td>
+								<input name="loginPw" type="password" class="w-96 textInput" placeholder="PASSWORD" />
+							</td>
+						</tr>
+						<tr>
+							<th>비밀번호 확인</th>
+							<td>
+								<input name="loginPwConfirm" class="w-96 textInput" placeholder="PASSWORD CONFIRM"
+								onkeyup="checkLoginPwConfirmedDebounced(this);" type="password" autocomplete="off" />
+								<div class="loginPwConfirm-msg"></div>
+							</td>
+						</tr>
+						<tr>
+							<th>이름</th>
+							<td>
+								<input name="name" class="w-96 textInput" placeholder="NAME" />
+							</td>
+						</tr>
+						<tr>
+							<th>닉네임</th>
+							<td>
+								<input name="nickname" class="w-96 textInput" placeholder="NICKNAME" />
+							</td>
+						</tr>
+						<tr>
+							<th>전화번호</th>
+							<td>
+								<input name="cellphoneNum" class="w-96 textInput" placeholder="PHONE NUMBER" />
+							</td>
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td>
+								<input name="email" class="w-96 textInput" placeholder="E-MAIL" />
+							</td>
+						</tr>
+					</tbody>
+	
+				</table>
+			</form>
+		</div>
+		
+		<div class="btns-wrap flex justify-center my-5">
+			<div>
+				<button class="btn btn-active myGray-bgc" type="submit" form="joinForm">회원가입</button>
+			</div>
+		</div>
 	</div>
 
-	<div class="container mx-auto btns">
-		<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-	</div>
+<!-- 	<div class="container mx-auto btns"> -->
+<!-- 		<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button> -->
+<!-- 	</div> -->
 
 </section>
 <%@ include file="../common/foot.jspf"%>
