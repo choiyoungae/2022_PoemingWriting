@@ -28,15 +28,15 @@ public class UsrReplyController {
 	public String doAdd(String relTypeCode, int relId, String body, String replaceUri) {
 
 		if (Ut.isEmpty(relTypeCode)) {
-			return rq.jsHistoryBack("relTypeCode을(를) 입력해주세요");
+			return rq.jsHistoryBack("relTypeCode을(를) 입력해주세요.");
 		}
 
 		if (Ut.isEmpty(relId)) {
-			return rq.jsHistoryBack("relId을(를) 입력해주세요");
+			return rq.jsHistoryBack("relId을(를) 입력해주세요.");
 		}
 
 		if (Ut.isEmpty(body)) {
-			return rq.jsHistoryBack("body을(를) 입력해주세요");
+			return rq.jsHistoryBack("body을(를) 입력해주세요.");
 		}
 
 
@@ -66,11 +66,11 @@ public class UsrReplyController {
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
 		
 		if(reply == null) {
-			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
+			return rq.jsHistoryBack(Ut.f("존재하지 않는 댓글입니다.", id));
 		}
 		
 		if (reply.isExtra__actorCanDelete() == false) {
-			return rq.jsHistoryBack("해당 댓글을 삭제할 권한이 없습니다");
+			return rq.jsHistoryBack("해당 댓글을 삭제할 권한이 없습니다.");
 		}
 		
 		ResultData deleteReplyRd = replyService.deleteReply(id);
@@ -97,18 +97,20 @@ public class UsrReplyController {
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
 		
 		if(reply == null) {
-			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
+			return rq.jsHistoryBack(Ut.f("존재하지 않는 댓글입니다.", id));
 		}
 		if (reply.isExtra__actorCanModify() == false) {
-			return rq.jsHistoryBack("해당 댓글을 수정할 권한이 없습니다");
+			return rq.jsHistoryBack("해당 댓글을 수정할 권한이 없습니다.");
 		}
 		
 		String relDataTitle = null;
+		String relDataBody = null;
 
 		switch (reply.getRelTypeCode()) {
 		case "article":
 			Article article = articleService.getArticle(reply.getRelId());
 			relDataTitle = article.getTitle();
+			relDataTitle = article.getBody();
 			break;
 		}
 
@@ -123,21 +125,21 @@ public class UsrReplyController {
 	public String doModify(int id, String body, String replaceUri) {
 
 		if (Ut.isEmpty(id)) {
-			return rq.jsHistoryBack("id가 없습니다");
+			return rq.jsHistoryBack("id가 없습니다.");
 		}
 
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
 
 		if (reply == null) {
-			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
+			return rq.jsHistoryBack(Ut.f("존재하지 않는 댓글입니다.", id));
 		}
 
 		if (reply.isExtra__actorCanModify() == false) {
-			return rq.jsHistoryBack("해당 댓글을 삭제할 권한이 없습니다");
+			return rq.jsHistoryBack("해당 댓글을 삭제할 권한이 없습니다.");
 		}
 
 		if (Ut.isEmpty(body)) {
-			return rq.jsHistoryBack("내용을 입력해주세요");
+			return rq.jsHistoryBack("내용을 입력해주세요.");
 		}
 
 		ResultData modifyReplyRd = replyService.modifyReply(id, body);

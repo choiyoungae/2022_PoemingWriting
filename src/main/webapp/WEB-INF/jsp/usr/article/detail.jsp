@@ -64,7 +64,7 @@
 						<tr>
 							<th>작성자</th>
 							<td>${article.extra__writerName }</td>
-							<th>작성날짜</th>
+							<th>작성일</th>
 							<td>${article.regDate }</td>
 							<th>조회수</th>
 							<td>
@@ -83,7 +83,6 @@
 							<th>추천</th>
 							<td>
 								<span>${article.goodReactionPoint }</span>
-								
 								<c:if test="${actorCanMakeReaction }">
 									<span>&nbsp;</span>
 									<a href="/usr/reaction/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.encodedCurrentUri }"
@@ -113,8 +112,26 @@
 							</td>
 							<th></th>
 							<td></td>
-							<th>책갈피</th>
-							<td></td>
+							<th>
+								<c:if test="${!rq.isLogined() }">
+									<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+										<i class="fa-regular fa-bookmark text-xl"></i>
+									</a>
+								</c:if>
+								<c:if test="${rq.isLogined() }">
+									<c:if test="${actorCanMakeBookmark }">
+										<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+											<i class="fa-regular fa-bookmark text-xl"></i>
+										</a>
+									</c:if>
+									<c:if test="${!actorCanMakeBookmark }">
+										<a class="btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+											<i class="fa-solid fa-bookmark text-xl"></i>
+										</a>
+									</c:if>
+								</c:if>
+							</th>
+							<td>${article.bookmark }</td>
 						</tr>
 					</tbody>
 				</table>
@@ -145,23 +162,6 @@
 						<button class="btn btn-ghost btn-active report-btn" type="submit" value="신고" >신고하기</button>
 					</form>
 				</div>
-				<c:if test="${!rq.isLogined() }">
-					<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
-						<i class="fa-regular fa-bookmark"></i>
-					</a>
-				</c:if>
-				<c:if test="${rq.isLogined() }">
-					<c:if test="${actorCanMakeBookmark }">
-						<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
-							<i class="fa-regular fa-bookmark"></i>
-						</a>
-					</c:if>
-					<c:if test="${!actorCanMakeBookmark }">
-						<a class="btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
-							<i class="fa-solid fa-bookmark"></i>
-						</a>
-					</c:if>
-				</c:if>
 			</c:if>
 			<c:if test="${article.extra__actorCanModify }">
 				<a class="btn btn-ghost" href="../article/modify?id=${article.id }">수정</a>
@@ -285,7 +285,9 @@
 				</form>
 			</c:if>
 			<c:if test="${rq.notLogined }">
-				<a class="btn  btn-ghost" href="${rq.loginUri}">로그인</a> 후 이용해주세요
+				<div class="text-center mt-5">
+					댓글 작성은 <a class="btn  btn-ghost" href="${rq.loginUri}">로그인</a> 후 이용해주세요
+				</div>
 			</c:if>
 		</div>
 		
