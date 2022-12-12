@@ -130,6 +130,7 @@ public class ReactionService {
 
 	public ResultData doReport(int relId, int reportedMemberId, int reportingMemberId, int reason) {
 		reactionRepository.doReport(relId, reportedMemberId, reportingMemberId, reason);
+		reactionRepository.increaseReportCount(relId);
 		
 		return ResultData.from("S-1", "신고 처리 완료");
 	}

@@ -85,7 +85,7 @@ $(document).ready(function() {
 							</a>
 						</li>
 					</c:if>
-					<li class="hover:underline menu-notice">
+					<li class="hover:underline menu-border-top">
 						<a href="/usr/article/list?boardId=1" class="h-full flex items-center px-3">
 							<span>NOTICE</span>
 						</a>
@@ -95,7 +95,7 @@ $(document).ready(function() {
 							<span>POEMING</span>
 						</a>
 					</li>
-					<li class="hover:underline menu-writing">
+					<li class="hover:underline menu-border-bottom">
 						<a href="/usr/article/list?boardId=3" class="h-full flex items-center px-3">
 							<span>WRITING</span>
 						</a>
@@ -107,7 +107,7 @@ $(document).ready(function() {
 					</li>
 					<c:if test="${rq.admin}">
 						<li class="hover:underline">
-							<a class="h-full px-3 flex items-center" href="/adm/member/list">
+							<a class="h-full px-3 flex items-center" href="/adm/home/main">
 								<span>관리자</span>
 							</a>
 						</li>

@@ -12,113 +12,99 @@ $(document).ready(function() {
 		$(this).children().removeClass('myGray-bgc-hover');
 	})
 	
-	$('.checkbox-all-member-id').change(function() {
+	$('.checkbox-all-article-id').change(function() {
 		const $all = $(this);
 		const allChecked = $all.prop('checked');
-		$('.checkbox-member-id').prop('checked', allChecked);
+		$('.checkbox-article-id').prop('checked', allChecked);
 	});
-	$('.checkbox-member-id').change(function() {
-		const checkboxMemberIdCount = $('.checkbox-member-id').length;
-		const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-		const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
-		$('.checkbox-all-member-id').prop('checked', allChecked);
+	$('.checkbox-article-id').change(function() {
+		const checkboxArticleIdCount = $('.checkbox-article-id').length;
+		const checkboxArticleIdCheckedCount = $('.checkbox-article-id:checked').length;
+		const allChecked = checkboxArticleIdCount == checkboxArticleIdCheckedCount;
+		$('.checkbox-all-article-id').prop('checked', allChecked);
 	});
 	
-	$('.btn-delete-selected-members').click(function() {
-		const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+	$('.btn-delete-selected-articles').click(function() {
+		const values = $('.checkbox-article-id:checked').map((index, el) => el.value).toArray();
 		if ( values.length == 0 ) {
-	 		alert('삭제할 회원을 선택 해주세요.');
+	 		alert('삭제할 게시물을 선택 해주세요.');
 	 		return;
 		}
 		if ( confirm('정말 삭제하시겠습니까?') == false ) {
 		return;
 		}
-		document['do-delete-members-form'].ids.value = values.join(',');
-		document['do-delete-members-form'].submit();
+		document['do-delete-articles-form'].ids.value = values.join(',');
+		document['do-delete-articles-form'].submit();
 	});
 })
 </script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<h1 class="subPage-title">관리자 페이지 - 회원 리스트</h1>
+		<h1 class="subPage-title">관리자 페이지 - 신고된 게시물 리스트</h1>
 		<div class="flex">
 			<div class="lh-50px items-baseline">
-				회원 수 : <span class="badge">${membersCount }명</span>
+				신고된 게시물 수 : <span class="badge">${reportedArticlesCount }개</span>
 			</div>
 			<div class="flex-grow"></div>
-			<form class="flex">
-
-				<select data-value="${authLevel }" name="authLevel" class="select select-bordered myGray-border">
-					<option disabled="disabled">회원 타입</option>
-					<option value="3">일반</option>
-					<option value="7">관리자</option>
-					<option value="0">전체</option>
-
-				</select>
-				<select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="ml-2 select select-bordered myGray-border">
-					<option disabled="disabled">검색 타입</option>
-					<option value="loginId">아이디</option>
-					<option value="name">이름</option>
-					<option value="nickname">닉네임</option>
-					<option value="loginId,name,nickname">전체</option>
-				</select>
-
-
-				<input name="searchKeyword" type="text" class="ml-2 w-96 textInput myGray-border" placeholder="검색어를 입력해주세요"
-					maxlength="20" value="${param.searchKeyword }" />
-				<button class="btn btn-active btn-ghost circle-btn myGray-bgc" type="submit" value="검색" >
-					<i class="fa-solid fa-magnifying-glass"></i>
-				</button>
-			</form>
 		</div>
 		<div class="white-board mt-10 dropShadow-black">
 			<div class="table-box-type-1 mt-3">
 				<table class="table table-fixed w-full">
 					<colgroup>
 						<col width="100" />
+						<col width="80" />
 						<col />
-						<col />
-						<col />
-						<col />
-						<col />
-						<col />
+						<col width="200" />
+						<col width="200" />
+						<col width="200" />
 					</colgroup>
+					
 					<thead>
 						<tr>
-							<th><input type="checkbox" class="checkbox-all-member-id" /></th>
-							<th>번호</th>
-							<th>가입날짜</th>
-							<th>수정날짜</th>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>닉네임</th>
+							<th><input type="checkbox" class="checkbox-all-article-id" /></th>
+							<th class="myGray">번호</th>
+							<th class="myGray">제목</th>
+							<th class="myGray">작성자</th>
+							<th class="myGray">작성일</th>
+							<th class="myGray">신고사유</th>
 						</tr>
 					</thead>
 	
-					<tbody class="text-base">
-						<c:forEach var="member" items="${members }">
-							<tr class="hoverLine">
-								<td><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
-								<td>${member.id}</td>
-								<td>${member.forPrintType1RegDate}</td>
-								<td>${member.forPrintType1UpdateDate}</td>
-								<td>${member.loginId}</td>
-								<td>${member.name}</td>
-								<td>${member.nickname}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
+					<tbody>
+					<c:forEach var="article" items="${reportedArticles }">
+						<tr class="hoverLine">
+							<td><input type="checkbox" class="checkbox-article-id" value="${article.id }" /></td>
+							<td>${article.id }</td>
+							<td><a href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title }</a></td>
+							<td>${article.extra__writerName }</td>
+							<!-- 오늘 게시글이면 시간 보이기 -->
+							<c:if test="${rq.getTodayDate().equals(article.getForPrintType2RegDate())}">
+								<td>${article.getForPrintType3RegDate() }</td>								
+							</c:if>
+							<!-- 오늘 게시글 아니면 날짜 보이기 -->
+							<c:if test="${!rq.getTodayDate().equals(article.getForPrintType2RegDate())}">
+								<td>${article.getForPrintType2RegDate() }</td>
+							</c:if>
+							<td>${article.getReportedReason()}</td>
+						</tr>
+					</c:forEach>
+					<c:if test="${articlesCount == 0 }">
+						<tr>
+							<td colspan="6">게시글이 존재하지 않습니다.</td>
+						</tr>
+					</c:if>
+				</tbody>
 	
 				</table>
 			</div>
 		</div>
 		
 		<div class="absolute mt-5">
-			<button class="btn btn-error btn-delete-selected-members">선택된 회원 삭제</button>
+			<button class="btn btn-error btn-delete-selected-articles">선택된 게시물 삭제</button>
 		</div>
 
-		<form hidden method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">
+		<form hidden method="POST" name="do-delete-articles-form" action="../article/doDeleteArticles">
 			<input type="hidden" name="ids" value="" />
 			<input type="hidden" name="replaceUri" value="${rq.currentUri}" />
 		</form>

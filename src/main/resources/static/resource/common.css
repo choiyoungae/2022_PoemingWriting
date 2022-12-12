@@ -328,12 +328,12 @@ body {
 	margin: 0 auto;
 	line-height: 3;
 }
-.menu-bar .menu-notice {
+.menu-bar .menu-border-top {
 	border-top: 2px solid rgba(64, 64, 64, 0.5);
 	padding-top: 6%;
 	margin-top: 6%;
 }
-.menu-bar .menu-writing {
+.menu-bar .menu-border-bottom {
 	border-bottom: 2px solid rgba(64, 64, 64, 0.5);
 	padding-bottom: 6%;
 	margin-bottom: 6%;
@@ -394,4 +394,14 @@ body {
 	display: inline-block;
 	margin-left: 1.25rem;
 	font-family: 'MICEGothic Bold';	
+}
+
+/* 관리자 페이지 */
+.menu-lh {
+	line-height: 50px !important;
+	padding-top: 10% !important;
+	padding-bottom: 10% !important;
+}
+.btn-delete-selected-members {
+	color: white;
 }

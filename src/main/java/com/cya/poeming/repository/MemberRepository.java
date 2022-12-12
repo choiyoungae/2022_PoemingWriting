@@ -120,7 +120,7 @@ public interface MemberRepository {
 			<script>
 			SELECT COUNT(*) AS cnt
 			FROM `member` AS M
-			WHERE 1
+			WHERE delStatus = 0
 			<if test="authLevel != 0">
 				AND M.authLevel = #{authLevel}
 			</if>
@@ -145,45 +145,56 @@ public interface MemberRepository {
 				</choose>
 			</if>
 			</script>
-							""")
+			""")
 	int getMembersCount(String authLevel, String searchKeywordTypeCode, String searchKeyword);
 
 	@Select("""
 			<script>
-			SELECT M.*
-			FROM `member` AS M
-			WHERE 1
-			<if test="authLevel != 0">
-				AND M.authLevel = #{authLevel}
-			</if>
-			<if test="searchKeyword != ''">
-				<choose>
-					<when test="searchKeywordTypeCode == 'loginId'">
-						AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchKeywordTypeCode == 'name'">
-						AND M.name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchKeywordTypeCode == 'nickname'">
-						AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<otherwise>
-						AND (
-							M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
-							OR M.name LIKE CONCAT('%', #{searchKeyword}, '%')
-							OR M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
-							)
-					</otherwise>
-				</choose>
-			</if>
-			ORDER BY M.id DESC
+				SELECT M.*
+				FROM `member` AS M
+				WHERE delStatus = 0
+				<if test="authLevel != 0">
+					AND M.authLevel = #{authLevel}
+				</if>
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordTypeCode == 'loginId'">
+							AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordTypeCode == 'name'">
+							AND M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordTypeCode == 'nickname'">
+							AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<otherwise>
+							AND (
+								M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+								OR M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+								)
+						</otherwise>
+					</choose>
+				</if>
+				ORDER BY M.id DESC
 				<if test="limitTake != -1">
 					LIMIT #{limitStart}, #{limitTake}
 				</if>
 			</script>
-							""")
+			""")
 	List<Member> getForPrintMembers(String authLevel, String searchKeywordTypeCode, String searchKeyword,
 			int limitStart, int limitTake);
 
-
+	@Select("""
+			<script>
+				UPDATE `member`
+				<set>
+					updateDate = NOW(),
+					delStatus = 1,
+					delDate = NOW(),
+				</set>
+				WHERE id = #{id}
+			</script>
+			""")
+	void deleteMember(int id);
 }

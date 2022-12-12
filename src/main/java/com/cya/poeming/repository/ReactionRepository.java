@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ReactionRepository {
@@ -141,4 +142,13 @@ public interface ReactionRepository {
 			</script>
 			""")
 	void doReport(int relId, int reportedMemberId, int reportingMemberId, int reason);
+
+	@Update("""
+			<script>
+				UPDATE article
+				SET report = report + 1
+				WHERE id = #{relId};
+			</script>
+			""")
+	void increaseReportCount(int relId);
 }

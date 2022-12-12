@@ -39,16 +39,52 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<div class="flex my-3 text-2xl">
-		<div class="container mx-auto px-3">
+	<header>
+		<div class="h-20 flex container mx-auto text-4xl">
 			<a href="/" class="flex items-center px-3">
 				<span>PoemingWriting</span>
 			</a>
+			
+			<div class="flex-grow"></div>
+			
+			<div class="flex items-center px-3">
+				<button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+			</div>
+			
 		</div>
-
-		<div class="hover:underline">
-			<a class="h-full px-3 flex items-center" href="${rq.logoutUri}">
-				<span>LOGOUT</span>
-			</a>
+	</header>
+	
+	<div class="menu-bar-wrapper">
+		<div class="menu-bar-background"></div>
+		<div class="menu-bar dropShadow-black myGray">
+			<button class="menu-close-btn"><i class="fa-solid fa-xmark"></i></button>
+			<div class="menus pt-20">
+				<ul>
+					<c:if test="${!rq.logined}">
+						<li class="hover:underline">
+							<a class="h-full px-3 flex items-center" href="${rq.loginUri }">
+								<span>LOGIN</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${rq.logined}">
+						<li class="hover:underline">
+							<a class="h-full px-3 flex items-center" href="${rq.logoutUri}">
+								<span>LOGOUT</span>
+							</a>
+						</li>
+					</c:if>
+					<li class="hover:underline menu-border-top text-center menu-border-bottom">
+						<a href="/adm/member/list" class="h-full flex items-center px-3">
+							<span class="menu-lh mt-10">MEMBER<br/>LIST</span>
+						</a>
+					</li>
+					<li class="hover:underline  text-center mt-5">
+						<a href="/adm/article/reportedList" class="h-full flex items-center px-3">
+							<span class="menu-lh">REPORTED<br/>ARTICLE</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>

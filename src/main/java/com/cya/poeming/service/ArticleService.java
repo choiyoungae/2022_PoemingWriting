@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cya.poeming.repository.ArticleRepository;
 import com.cya.poeming.util.Ut;
 import com.cya.poeming.vo.Article;
+import com.cya.poeming.vo.Member;
 import com.cya.poeming.vo.ResultData;
 
 @Service
@@ -201,5 +202,26 @@ public class ArticleService {
 
 	public List<Article> getLimitedArticlesByBoardId(int boardId, int count) {
 		return articleRepository.getLimitedArticlesByBoardId(boardId, count);
+	}
+
+	public int getReportedArticlesCount() {
+		return articleRepository.getReportedArticlesCount();
+	}
+
+	public List<Article> getForPrintReportedMembers(int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		
+		return articleRepository.getForPrintReportedMembers(limitStart, limitTake);
+	}
+
+	public void deleteArticles(List<Integer> articleIds) {
+		for (int articleId : articleIds) {
+			Article article = articleRepository.getForPrintArticle(articleId);
+
+			if (article != null) {
+				articleRepository.deleteArticle(article.getId());
+			}
+		}
 	}
 }

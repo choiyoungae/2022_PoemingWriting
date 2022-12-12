@@ -89,7 +89,7 @@ public class UsrMemberController {
 		}
 		
 		if(member.isDelStatus()) {
-			return rq.jsHistoryBack("탈퇴한 회원입니다.");
+			return rq.jsHistoryBack("탈퇴 또는 사용 정지된 회원입니다.");
 		}
 
 		rq.login(member);

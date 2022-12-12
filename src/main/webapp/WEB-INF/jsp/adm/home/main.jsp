@@ -10,15 +10,8 @@
 		</c:if>
 		
 		<c:if test="${isAdminLogined }">
-			<div class="mt-10">
+			<div class="mt-10 text-lg">
 				관리자님, 안녕하세요
-			</div>
-			
-			<div class="mt-10">
-				<h3>회원 목록</h3>
-				<ul>
-					<li></li>
-				</ul>
 			</div>
 		</c:if>
 	</div>

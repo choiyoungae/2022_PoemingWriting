@@ -171,15 +171,18 @@ public class Rq {
 //		case "/usr/article/modify":
 //			return "../member/doLogout?afterLogoutUri=" + "/";
 //		}
-		if (requestUri.contains("adm")) {
-			//TODO
-			return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
-		}
-		
+
 		return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 
 	public String getAfterLogoutUri() {
+		String requestUri = req.getRequestURI();
+		// 로그아웃 후 다시 돌아가면 안되는 URL
+		switch (requestUri) {
+		case "/adm/member/list":
+			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
+		}
+		
 		return getEncodedCurrentUri();
 	}
 	

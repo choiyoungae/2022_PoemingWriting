@@ -273,4 +273,34 @@ public interface ArticleRepository {
 			""")
 	public List<Article> getLimitedArticlesByBoardId(int boardId, int count);
 
+	@Select("""
+			<script>
+				SELECT COUNT(*) FROM article
+				WHERE id IN (
+				    SELECT relId FROM report
+				)
+				ORDER BY id DESC
+			</script>
+			""")
+	public int getReportedArticlesCount();
+
+	@Select("""
+			<script>
+				SELECT A.*, R.reason AS reportedReason, M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN report AS R
+				ON A.id = R.relId
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE A.id IN (
+				    SELECT R.relId
+				)
+				ORDER BY A.id DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>
+			</script>
+			""")
+	public List<Article> getForPrintReportedMembers(int limitStart, int limitTake);
+
 }

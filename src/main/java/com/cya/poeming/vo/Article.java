@@ -20,6 +20,7 @@ public class Article {
 	private int badReactionPoint;
 	private int bookmark;
 	private int report;
+	private int reportedReason;
 	
 	private String extra__writerName;
 	private String extra__boardName;
@@ -48,5 +49,18 @@ public class Article {
 			return title.substring(0,10) + "<br />...";
 		}
 		return title;
+	}
+	
+	public String getReportedReason() {
+		if(reportedReason == 1) {
+			return "스팸홍보/도배글";
+		}
+		if(reportedReason == 2) {
+			return "음란물";
+		}
+		if(reportedReason == 3) {
+			return "불법정보/저작권 침해";
+		}
+		return "기타";
 	}
 }
