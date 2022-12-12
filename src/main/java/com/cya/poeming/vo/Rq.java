@@ -155,22 +155,28 @@ public class Rq {
 	}
 	
 	public String getJoinUri() {
-		return "../member/join?afterLoginUri=" + getAfterLoginUri();
+		return "/usr/member/join?afterLoginUri=" + getAfterLoginUri();
 	}
 
 	public String getLoginUri() {
-		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+		return "/usr/member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 	
 	public String getLogoutUri() {
 		String requestUri = req.getRequestURI();
 		
-		switch(requestUri) {
-		case "/usr/article/write":
-		case "/usr/article/modify":
-			return "../member/doLogout?afterLogoutUri=" + "/";
+		System.err.println(requestUri);
+//		switch (requestUri) {
+//		case "/usr/article/write":
+//		case "/usr/article/modify":
+//			return "../member/doLogout?afterLogoutUri=" + "/";
+//		}
+		if (requestUri.contains("adm")) {
+			//TODO
+			return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 		}
-		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+		
+		return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 
 	public String getAfterLogoutUri() {
@@ -178,15 +184,15 @@ public class Rq {
 	}
 	
 	public String getArticleDetailUriFromArticleList(Article article) {
-		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+		return "/usr/article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
 	}
 	
 	public String getFindLoginIdUri() {
-		return "../member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
+		return "/usr/member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
 	}
 
 	public String getFindLoginPwUri() {
-		return "../member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
+		return "/usr/member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
 	}
 
 	public String getAfterFindLoginIdUri() {
@@ -205,5 +211,13 @@ public class Rq {
 		String strNowDate = simpleDateFormat.format(nowDate); 
     	// 지정한 포맷으로 변환 
 		return strNowDate;
+	}
+	
+	public boolean isAdmin() {
+		if (isLogined == false) {
+			return false;
+		}
+
+		return loginedMember.isAdmin();
 	}
 }

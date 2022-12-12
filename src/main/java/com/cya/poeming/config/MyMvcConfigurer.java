@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.cya.poeming.interceptor.BeforeActionInterceptor;
+import com.cya.poeming.interceptor.NeedAdminInterceptor;
 import com.cya.poeming.interceptor.NeedLoginInterceptor;
 import com.cya.poeming.interceptor.NeedLogoutInterceptor;
 
@@ -22,6 +23,9 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 		// NeedLogoutInterceptor 불러오기
 		@Autowired
 		NeedLogoutInterceptor needLogoutInterceptor;
+		// NeedLogoutInterceptor 불러오기
+		@Autowired
+		NeedAdminInterceptor needAdminInterceptor;
 		
 		// 인터셉터 적용
 		public void addInterceptors(InterceptorRegistry registry) {
@@ -60,6 +64,13 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 			ir.addPathPatterns("/usr/reaction/doBookmark");
 			ir.addPathPatterns("/usr/reaction/doCancelBookmark");
 			ir.addPathPatterns("/usr/reaction/doReport");
+			ir.addPathPatterns("/adm/**");
+			ir.addPathPatterns("/adm/member/login");
+			ir.addPathPatterns("/adm/member/doLogin");
+			ir.addPathPatterns("/adm/member/findLoginId");
+			ir.addPathPatterns("/adm/member/doFindLoginId");
+			ir.addPathPatterns("/adm/member/findLoginPw");
+			ir.addPathPatterns("/adm/member/doFindLoginPw");
 			
 			ir = registry.addInterceptor(needLogoutInterceptor);
 			ir.addPathPatterns("/usr/member/login");
@@ -71,5 +82,14 @@ public class MyMvcConfigurer implements WebMvcConfigurer {
 			ir.addPathPatterns("/usr/member/doFindLoginId");
 			ir.addPathPatterns("/usr/member/findLoginPw");
 			ir.addPathPatterns("/usr/member/doFindLoginPw");
+			
+			ir = registry.addInterceptor(needAdminInterceptor);
+			ir.addPathPatterns("/adm/**");
+			ir.addPathPatterns("/adm/member/login");
+			ir.addPathPatterns("/adm/member/doLogin");
+			ir.addPathPatterns("/adm/member/findLoginId");
+			ir.addPathPatterns("/adm/member/doFindLoginId");
+			ir.addPathPatterns("/adm/member/findLoginPw");
+			ir.addPathPatterns("/adm/member/doFindLoginPw");
 		}
 }
