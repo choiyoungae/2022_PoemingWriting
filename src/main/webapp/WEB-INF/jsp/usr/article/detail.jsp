@@ -114,18 +114,18 @@
 							<td></td>
 							<th>
 								<c:if test="${!rq.isLogined() }">
-									<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+									<a href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
 										<i class="fa-regular fa-bookmark text-xl"></i>
 									</a>
 								</c:if>
 								<c:if test="${rq.isLogined() }">
 									<c:if test="${actorCanMakeBookmark }">
-										<a class="btn btn-ghost" href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+										<a href="../reaction/doBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
 											<i class="fa-regular fa-bookmark text-xl"></i>
 										</a>
 									</c:if>
 									<c:if test="${!actorCanMakeBookmark }">
-										<a class="btn btn-ghost" href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
+										<a href="../reaction/doCancelBookmark?relId=${article.id }&replaceUri=${rq.encodedCurrentUri}">
 											<i class="fa-solid fa-bookmark text-xl"></i>
 										</a>
 									</c:if>
@@ -178,7 +178,7 @@
 <!-- 댓글 부분 -->
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<div class="white-board-reply mt-10 dropShadow-black">
+		<div class="white-board-reply mt-5 dropShadow-black">
 			<div class="table-box-type-1 mt-5">
 				<table class="table w-full">
 					<colgroup>
@@ -276,7 +276,7 @@
 										placeholder="댓글을 입력해주세요" /></textarea>
 								</td>
 								<td>
-									<button class="btn btn-active btn-ghost" type="submit">댓글작성</button>
+									<button class="btn btn-active myGray-bgc" type="submit">댓글작성</button>
 								</td>
 							</tr>
 						</tbody>

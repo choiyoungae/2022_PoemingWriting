@@ -179,7 +179,9 @@ public class Rq {
 		String requestUri = req.getRequestURI();
 		// 로그아웃 후 다시 돌아가면 안되는 URL
 		switch (requestUri) {
+		case "/adm/home/main":
 		case "/adm/member/list":
+		case "/adm/member/doDeleteMembers":
 			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
 		}
 		
