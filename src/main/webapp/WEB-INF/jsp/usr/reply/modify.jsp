@@ -61,7 +61,7 @@
 <!-- 							</td> -->
 <!-- 						</tr> -->
 						<tr>
-							<th>작성날짜</th>
+							<th>작성일</th>
 							<td>${reply.regDate }</td>
 						</tr>
 <!-- 						<tr> -->

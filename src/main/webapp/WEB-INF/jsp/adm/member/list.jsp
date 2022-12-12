@@ -44,7 +44,7 @@ $(document).ready(function() {
 		<h1 class="subPage-title">관리자 페이지 - 회원 리스트</h1>
 		<div class="flex">
 			<div class="lh-50px items-baseline">
-				회원 수 : <span class="badge">${membersCount }명</span>
+				회원 수 : <span class="badge myGray-bgc">${membersCount }명</span>
 			</div>
 			<div class="flex-grow"></div>
 			<form class="flex">
@@ -65,57 +65,55 @@ $(document).ready(function() {
 				</select>
 
 
-				<input name="searchKeyword" type="text" class="ml-2 w-96 textInput myGray-border" placeholder="검색어를 입력해주세요"
+				<input name="searchKeyword" type="text" class="w-96 searchInput myGray-border ml-1"
 					maxlength="20" value="${param.searchKeyword }" />
 				<button class="btn btn-active btn-ghost circle-btn myGray-bgc" type="submit" value="검색" >
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</form>
 		</div>
-		<div class="white-board mt-10 dropShadow-black">
-			<div class="table-box-type-1 mt-3">
-				<table class="table table-fixed w-full">
-					<colgroup>
-						<col width="100" />
-						<col />
-						<col />
-						<col />
-						<col />
-						<col />
-						<col />
-					</colgroup>
-					<thead>
-						<tr>
-							<th><input type="checkbox" class="checkbox-all-member-id" /></th>
-							<th>번호</th>
-							<th>가입날짜</th>
-							<th>수정날짜</th>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>닉네임</th>
+		<div class="table-box-type-1 mt-3 white-board dropShadow-black">
+			<table class="table table-fixed w-full">
+				<colgroup>
+					<col width="100" />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+					<col />
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" class="checkbox-all-member-id" /></th>
+						<th>번호</th>
+						<th>가입일</th>
+						<th>수정일</th>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>닉네임</th>
+					</tr>
+				</thead>
+
+				<tbody class="text-base">
+					<c:forEach var="member" items="${members }">
+						<tr class="hoverLine">
+							<td><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
+							<td>${member.id}</td>
+							<td>${member.forPrintType1RegDate}</td>
+							<td>${member.forPrintType1UpdateDate}</td>
+							<td>${member.loginId}</td>
+							<td>${member.name}</td>
+							<td>${member.nickname}</td>
 						</tr>
-					</thead>
-	
-					<tbody class="text-base">
-						<c:forEach var="member" items="${members }">
-							<tr class="hoverLine">
-								<td><input type="checkbox" class="checkbox-member-id" value="${member.id }" /></td>
-								<td>${member.id}</td>
-								<td>${member.forPrintType1RegDate}</td>
-								<td>${member.forPrintType1UpdateDate}</td>
-								<td>${member.loginId}</td>
-								<td>${member.name}</td>
-								<td>${member.nickname}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-	
-				</table>
-			</div>
+					</c:forEach>
+				</tbody>
+
+			</table>
 		</div>
 		
 		<div class="absolute mt-5">
-			<button class="btn btn-error btn-delete-selected-members">선택된 회원 삭제</button>
+			<button class="btn btn-error btn-delete-selected-members">선택된 회원 탈퇴</button>
 		</div>
 
 		<form hidden method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">

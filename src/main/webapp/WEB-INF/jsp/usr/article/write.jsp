@@ -74,7 +74,7 @@
 							<th>내용</th>
 							<td>
 								<div class="toast-ui-editor writingArea">
-							      <script type="text/x-template"></script>
+							    	<script type="text/x-template"></script>
 							    </div>
 							</td>
 						</tr>

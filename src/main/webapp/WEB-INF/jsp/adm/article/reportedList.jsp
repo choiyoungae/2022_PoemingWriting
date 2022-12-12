@@ -44,7 +44,7 @@ $(document).ready(function() {
 		<h1 class="subPage-title">관리자 페이지 - 신고된 게시물 리스트</h1>
 		<div class="flex">
 			<div class="lh-50px items-baseline">
-				신고된 게시물 수 : <span class="badge">${reportedArticlesCount }개</span>
+				신고된 게시물 수 : <span class="badge myGray-bgc">${reportedArticlesCount }개</span>
 			</div>
 			<div class="flex-grow"></div>
 		</div>
