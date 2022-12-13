@@ -6,25 +6,23 @@
 <%@ include file="../common/toastUiEditorLib.jspf" %>
 
 <script>
-	let ArticleModify__submitDone = false;
-	function ArticleModify__submit(form) {
-		if (ArticleModify__submitDone) {
-			return;
-		}
-		
-		const editor = $(form).find('.toast-ui-editor').data('.data-toast-editor');
-		const markdown = editor.getMarkdown().trim();
-		
-		if(markdown.length == 0) {
-			alert('내용을 입력해주세요');
-			editor.focus();
-			return;
-		}
-		form.body.value = markdown;
-		ArticleModify__submitDone = true;
-		
-		form.submit();
+let ArticleModify__submitDone = false;
+function ArticleModify__submit(form) {
+	if (ArticleModify__submitDone) {
+		return;
 	}
+	const editor = $(form).find('.toast-ui-editor').data(
+			'data-toast-editor');
+	const markdown = editor.getMarkdown().trim();
+	if (markdown.length == 0) {
+		alert('내용을 입력해주세요');
+		editor.focus();
+		return;
+	}
+	form.body.value = markdown;
+	ArticleModify__submitDone = true;
+	form.submit();
+}
 </script>
 
 <section class="mt-8 text-xl">

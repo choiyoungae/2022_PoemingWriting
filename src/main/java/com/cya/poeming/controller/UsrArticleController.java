@@ -213,6 +213,13 @@ public class UsrArticleController {
 		if(article == null) {
 			return rq.jsHistoryBack(Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
+		if(Ut.isEmpty(title)) {
+			return rq.jsHistoryBack("제목을 입력해주세요.");
+		}
+		System.err.println("body : " + body);
+		if(Ut.isEmpty(body)) {
+			return rq.jsHistoryBack("내용을 입력해주세요.");
+		}
 		
 		ResultData actorCanModifyRd = articleService.actorCanModify(rq.getLoginedMemberId(), article);
 		
